@@ -53,7 +53,7 @@ const WhyChooseUsSection = () => {
             <div
               key={item.id}
               className={`
-      bg-white rounded-md shadow-md p-6 border border-[#b0b0b0]
+      bg-white rounded-md shadow-md p-6 border border-10 border-[#b0b0b0]
       flex flex-col items-center text-center w-full
       ${
         index === 0
