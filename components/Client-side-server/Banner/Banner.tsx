@@ -31,7 +31,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
               alt={banner.heading || `Banner ${index + 1}`}
               width={1920}
               height={1080}
-              className="rounded-none object-cover w-full h-[50vh] sm:h-[50vh] md:h-[52vh] lg:h-auto"
+              className="rounded-none object-cover w-full h-[50vh] sm:h-[40vh] md:h-[52vh] lg:h-auto"
             />
           )}
 
