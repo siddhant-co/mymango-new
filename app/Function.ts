@@ -1,50 +1,10 @@
 // Importing Category from type.ts if you want to reuse the structure
  
 import { Product } from "@/types/Products";
-import { Category, Testimonial } from "@/types/ProductTypes";
+import { Testimonial } from "@/types/ProductTypes";
  
-export async function fetchCategories(): Promise<Category[]> {
-  try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-    const res = await fetch(`${apiUrl}/frontend/categories/`, {
-      cache: 'no-store',
-    });
+
  
-    if (!res.ok) {
-      throw new Error('Failed to fetch categories');
-    }
- 
-    const data = await res.json();
-    return data.product_categories || [];
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return [];
-  }
-}
- 
-export async function fetchBestsellerCategories(): Promise<Product[]> {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/frontend/products`, {
-      cache: 'no-store',
-    });
- 
-    if (!res.ok) {
-      throw new Error("Failed to fetch bestseller products");
-    }
- 
-    const data = await res.json();
- 
-    // ✅ Return products, not categories
-    return data.products?.slice(0, 9) || [];
-  } catch (error) {
-    console.error("Error fetching bestseller products:", error);
-    return [];
-  }
-}
- 
- 
- 
-//
  
 export async function fetchNewArrivals(): Promise<Product[]> {
   try {
