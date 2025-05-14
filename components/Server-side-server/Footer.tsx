@@ -1,12 +1,24 @@
+import Image from "next/image";
 import React from "react";
 
-const Footer = () => {
+type Props = {};
+
+const Footer = (props: Props) => {
   return (
-    <footer className="bg-orange-500 text-black px-6 py-10 md:px-16">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="text-black py-10 px-6 md:px-16 lg:px-20">
+      {/* Divider line at the top */}
+      <div className="border-t border-gray-300 mb-10"></div>
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
         {/* LOGO + CONTACT */}
         <div>
-          <h1 className="text-3xl font-bold mb-6">LOGO</h1>
+          <Image
+            src="/MangoLogo.webp" // Make sure your logo is in the /public folder
+            alt="Company Logo"
+            width={140}
+            height={40}
+            className="mb-6"
+          />
           <div className="text-sm space-y-2">
             <p>
               <strong>WhatsApp</strong> : +62 859 9999 999
@@ -23,7 +35,7 @@ const Footer = () => {
 
         {/* MENU */}
         <div>
-          <h3 className="text-xl font-semibold mb-4">Menu</h3>
+          <h4 className="text-lg font-semibold mb-4">Menu</h4>
           <ul className="space-y-2 text-sm">
             <li>Sale</li>
             <li>New Arrivals</li>
@@ -36,7 +48,7 @@ const Footer = () => {
 
         {/* GET HELP */}
         <div>
-          <h3 className="text-xl font-semibold mb-4">Get Help</h3>
+          <h4 className="text-lg font-semibold mb-4">Get Help</h4>
           <ul className="space-y-2 text-sm">
             <li>FAQ</li>
             <li>Customer Service</li>
@@ -48,7 +60,7 @@ const Footer = () => {
 
         {/* ACCOUNT */}
         <div>
-          <h3 className="text-xl font-semibold mb-4">Account</h3>
+          <h4 className="text-lg font-semibold mb-4">Account</h4>
           <ul className="space-y-2 text-sm">
             <li>My Account</li>
             <li>My Orders</li>
