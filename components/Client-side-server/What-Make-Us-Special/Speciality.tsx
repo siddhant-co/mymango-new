@@ -40,7 +40,7 @@ const Speciality = (props: Props) => {
   return (
     <>
       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-center my-6 mb-14 tracking-widest px-4">
-        DISCOVER ALL OUR PRODUCTS
+        HERE'S WHAT MAKES US SPECIAL
       </h2>
 
       <section
