@@ -60,7 +60,7 @@ const Stories = () => {
   };
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="pt-16 px-4 sm:px-6 lg:px-8 bg-white">
       <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-center mt-[-6px] mb-10 sm:mt-[-10px] sm:mb-[20px] tracking-widest px-4">
         READ OUR LATEST STORIES
       </h2>

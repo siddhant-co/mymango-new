@@ -31,6 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({
   const [categories, setCategories] = useState<Category[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
 
   useEffect(() => {
     const fetchNav = async () => {
@@ -63,8 +64,13 @@ const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleCloseMenu = () => {
+    setIsMobileMenuOpen(false);
+    setShowMobileDropdown(false);
+  };
+
   const renderCategoryDropdown = () => (
-    <div className="absolute left-1/2 top-full transform -translate-x-1/2 mt-4 z-50 w-[90vw] max-w-5xl bg-white shadow-lg p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+    <div className="absolute left-1/2 top-full transform -translate-x-1/2 mt-4 z-50 w-[50vw] max-w-2xl bg-white shadow-lg p-6 grid grid-cols-1 sm:grid-cols-2 gap-x-0 gap-y-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
       {categories.map((cat) => {
         const imageSrc = cat.image.startsWith("/")
           ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${cat.image}`
@@ -73,7 +79,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <Link
             key={cat.id}
             href={`/category/${cat.id}`}
-            className="flex items-center gap-4 hover:text-orange-500"
+            className="flex items-center gap-3 hover:text-orange-500"
           >
             <div className="w-16 h-16 relative">
               <Image
@@ -93,15 +99,18 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-white/30 backdrop-blur-md shadow-md" : "bg-transparent"
+        isMobileMenuOpen
+          ? "bg-white shadow-md"
+          : isScrolled
+          ? "bg-white/30 backdrop-blur-md shadow-md"
+          : "bg-transparent"
       }`}
     >
-      {/* Mobile and Tablet Top Bar */}
+      {/* Mobile & Tablet Top Bar */}
       <div className="flex lg:hidden justify-between items-center px-2 py-3">
         <Link href="/">
           <Image src="/MangoLogo.webp" alt="Logo" width={100} height={30} />
         </Link>
-        {/* Search Bar Positioned Between Logo and Icons */}
         <div className="flex flex-1 justify-center mx-4">
           <div className="relative w-[80%] max-w-sm">
             <span className="absolute inset-y-0 left-3 flex items-center">
@@ -132,7 +141,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {isMobileMenuOpen ? (
             <X
               className="text-black w-6 h-6 cursor-pointer"
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={handleCloseMenu}
             />
           ) : (
             <Menu
@@ -149,7 +158,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <Image src="/MangoLogo.webp" alt="Logo" width={160} height={40} />
         </Link>
 
-        <div className="flex gap-10 items-center">
+        <div className="flex gap-6 items-center">
           {navData.map((item, index) => (
             <div key={item.pk} className="relative group">
               <Link
@@ -184,7 +193,7 @@ const Navbar: React.FC<NavbarProps> = ({
           ))}
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
           <div className="relative w-52">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
@@ -228,22 +237,62 @@ const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Menu Links */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden px-4 pb-4 bg-white">
-          <ul className="flex flex-col gap-3 text-sm">
-            {navData.map((item) => (
-              <li key={item.pk}>
-                <Link
-                  href={item.link}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
+      <div
+        className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+          isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        } bg-white px-4`}
+      >
+        <ul className="flex flex-col gap-3 text-sm py-4">
+          {navData.map((item, index) => (
+            <li key={item.pk}>
+              {index === 1 ? (
+                <>
+                  <div
+                    className="flex justify-between items-center cursor-pointer"
+                    onClick={() => setShowMobileDropdown(!showMobileDropdown)}
+                  >
+                    <span>{item.name}</span>
+                    <svg
+                      className={`w-4 h-4 transition-transform duration-300 ${
+                        showMobileDropdown ? "rotate-180" : ""
+                      }`}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                  {showMobileDropdown && (
+                    <ul className="mt-2 ml-4 space-y-2">
+                      {categories.map((cat) => (
+                        <li key={cat.id}>
+                          <Link
+                            href={`/category/${cat.id}`}
+                            onClick={handleCloseMenu}
+                            className="block text-sm text-gray-800 hover:text-orange-500"
+                          >
+                            {cat.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ) : (
+                <Link href={item.link} onClick={handleCloseMenu}>
                   {item.name}
                 </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };

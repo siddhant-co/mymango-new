@@ -127,3 +127,41 @@ body {
 .animate-marquee {
   animation: marquee 15s linear infinite;
 }
+
+/* Navbar effect */
+
+@tailwind utilities;
+
+@layer utilities {
+  @keyframes curtainDrop {
+    0% {
+      opacity: 0;
+      transform: translateY(-30%) scaleY(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
+  @keyframes curtainLift {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-30%) scaleY(0.9);
+    }
+  }
+
+  .animate-curtain {
+    animation: curtainDrop 0.5s ease-out forwards;
+    transform-origin: top;
+  }
+
+  .animate-curtain-exit {
+    animation: curtainLift 0.5s ease-in forwards;
+    transform-origin: top;
+  }
+}
