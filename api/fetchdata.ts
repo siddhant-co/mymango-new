@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const NEXT_PUBLIC_API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL; 
+const NEXT_PUBLIC_API_BASE_URL = "https://nxadmin.consociate.co.in"; 
 
 async function fetchData(endpoint: string) {
   try {
