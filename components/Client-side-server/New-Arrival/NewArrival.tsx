@@ -136,9 +136,9 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
                                   [product.id]: variant,
                                 }))
                               }
-                              className={`w-12 h-12 p-1 border cursor-pointer rounded-full overflow-hidden flex items-center justify-center
+                              className={`w-15 h-15 p-1 border cursor-pointer rounded-full overflow-hidden flex items-center justify-center
         ${selected?.id === variant.id ? "ring-2 ring-blue-400" : ""}
-        sm:w-12 sm:h-12 lg:w-8 lg:h-8`}
+        sm:w-15 sm:h-15 lg:w-8 lg:h-8`}
                             >
                               {variant.images?.[0] && (
                                 <Image
