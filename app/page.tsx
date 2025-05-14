@@ -27,7 +27,7 @@ const Home = async () => {
   return (
     <>
       <Banner bannerEndpoint={bannerdata} />
-      <h2 className="text-[40px] font-medium text-center mt-12 tracking-widest">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-center my-6 mb-0 tracking-widest px-4">
         BROWSE THROUGH OUR CATEGORIES
       </h2>
       <Category categories={categories} /> <Speciality />

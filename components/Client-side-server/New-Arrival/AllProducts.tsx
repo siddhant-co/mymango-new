@@ -47,7 +47,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
   };
 
   return (
-    <main className="px-5 py-6 max-w-7xl mx-auto">
+    <main className="px-2 sm:px-3 py-6 max-w-7xl mx-auto">
       <h1
         className="text-2xl md:text-[48px] mb-6 text-center font-playfair"
         style={{ color: "#3E3E3E" }}
@@ -66,10 +66,13 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
             return (
               <div key={product.id} className="px-2">
-                <div className="border border-gray-300 shadow hover:shadow-md transition min-h-full w-full mb-6">
+                <div
+                  className="border shadow hover:shadow-md transition min-h-full w-full mb-6"
+                  style={{ border: "1px solid #9B9B9B" }}
+                >
                   <div
                     className="p-1 flex items-center justify-center relative"
-                    style={{ borderBottom: "1px solid #9B9B9B" }}
+                    style={{ borderBottom: "1px solid gray" }}
                   >
                     <Image
                       src={`https://nxadmin.consociate.co.in${displayImage}`}
@@ -85,45 +88,55 @@ export default function ProductsPage({ products }: ProductsPageProps) {
                     </div>
                   </div>
 
-                  <div className="flex flex-col p-2">
-                    <h2 className="text-sm font-semibold">{product.name}</h2>
-                    <p className="text-xs sm:text-sm text-[#f83a3a]">
-                      ₹{displayPrice}
-                      {basePrice !== displayPrice && (
-                        <span className="line-through text-xs ml-1 text-gray-500">
-                          ₹{basePrice}
-                        </span>
-                      )}
-                    </p>
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center text-center sm:text-left px-2">
+                    <div className="flex flex-col p-2">
+                      <h2 className="text-sm font-semibold">{product.name}</h2>
+                      <p className="text-xs sm:text-sm text-[#f83a3a]">
+                        ₹{displayPrice}
+                        {basePrice !== displayPrice && (
+                          <span className="line-through text-xs ml-1 text-gray-500">
+                            ₹{basePrice}
+                          </span>
+                        )}
+                      </p>
 
-                    <div className="flex gap-1 mt-1 flex-wrap">
-                      {product.variant_list?.slice(0, 3).map((variant: any) => (
-                        <div
-                          key={variant.id}
-                          title={variant.specification.colour}
-                          onClick={() =>
-                            setSelectedVariants((prev) => ({
-                              ...prev,
-                              [product.id]: variant,
-                            }))
-                          }
-                          className={`w-10 h-10 border cursor-pointer rounded-full overflow-hidden flex items-center justify-center ${
-                            selected?.id === variant.id
-                              ? "ring-2 ring-blue-400"
-                              : ""
-                          }`}
-                        >
-                          {variant.images && variant.images.length > 0 && (
-                            <Image
-                              src={`https://nxadmin.consociate.co.in${variant.images[0]}`}
-                              alt={variant.specification.colour || "Variant"}
-                              width={30}
-                              height={30}
-                              className="object-contain"
-                            />
-                          )}
-                        </div>
-                      ))}
+                      <div className="flex gap-1 mt-1 flex-wrap">
+                        {product.variant_list
+                          ?.slice(0, 3)
+                          .map((variant: any) => (
+                            <div
+                              key={variant.id}
+                              title={variant.specification.colour}
+                              onClick={() =>
+                                setSelectedVariants((prev) => ({
+                                  ...prev,
+                                  [product.id]: variant,
+                                }))
+                              }
+                              className={`w-8 h-8 border cursor-pointer rounded-full overflow-hidden flex items-center justify-center ${
+                                selected?.id === variant.id
+                                  ? "ring-2 ring-blue-400"
+                                  : ""
+                              }`}
+                            >
+                              {variant.images && variant.images.length > 0 && (
+                                <Image
+                                  src={`https://nxadmin.consociate.co.in${variant.images[0]}`}
+                                  alt={
+                                    variant.specification.colour || "Variant"
+                                  }
+                                  width={20}
+                                  height={20}
+                                  className="object-contain"
+                                />
+                              )}
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+
+                    <div className="text-yellow-500 text-sm sm:text-base whitespace-nowrap mt-2 sm:mt-0">
+                      ★★★★<span className="text-gray-300">★</span>
                     </div>
                   </div>
                 </div>

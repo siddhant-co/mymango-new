@@ -101,6 +101,31 @@ const Navbar: React.FC<NavbarProps> = ({
         <Link href="/">
           <Image src="/MangoLogo.webp" alt="Logo" width={100} height={30} />
         </Link>
+        {/* Search Bar Positioned Between Logo and Icons */}
+        <div className="flex flex-1 justify-center mx-4">
+          <div className="relative w-[80%] max-w-sm">
+            <span className="absolute inset-y-0 left-3 flex items-center">
+              <svg
+                className="w-5 h-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+                />
+              </svg>
+            </span>
+            <input
+              type="text"
+              placeholder="Search"
+              className="pl-10 pr-4 py-2 rounded-full w-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+            />
+          </div>
+        </div>
         <div className="flex items-center gap-3 ml-auto mr-2">
           <CircleUserRound className="text-black w-5 h-5" />
           <ShoppingBag className="text-black w-5 h-5" />
@@ -115,32 +140,6 @@ const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setIsMobileMenuOpen(true)}
             />
           )}
-        </div>
-      </div>
-
-      {/* Mobile and Tablet Search Bar */}
-      <div className="lg:hidden px-4 mb-3 flex justify-center">
-        <div className="relative w-[90%] max-w-sm">
-          <span className="absolute inset-y-0 left-3 flex items-center">
-            <svg
-              className="w-5 h-5 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
-              />
-            </svg>
-          </span>
-          <input
-            type="text"
-            placeholder="Search"
-            className="pl-10 pr-4 py-2 rounded-full w-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
-          />
         </div>
       </div>
 
@@ -230,7 +229,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Menu Links */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden px-4 pb-4">
+        <div className="lg:hidden px-4 pb-4 bg-white">
           <ul className="flex flex-col gap-3 text-sm">
             {navData.map((item) => (
               <li key={item.pk}>
