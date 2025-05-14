@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* globals.css */
+
+/* globals.css */
+
+:root {
+  font-family: var(--font-playfair), serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-playfair), serif;
+}
+
+/* Css for codes */
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-slide {
+  display: flex;
+  animation: slide 20s linear infinite;
+  margin: 0px 10px;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-slide {
+  display: flex;
+  animation: slide 20s linear infinite;
+}
+
+@keyframes bounceUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px); /* Bounce up */
+  }
+  100% {
+    transform: translateY(0); /* Bounce back down */
+  }
+}
+
+/* For horizontal scroll with one category visible at a time */
+.category-list {
+  display: flex;
+  transition: transform 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden; /* Hide extra categories */
+}
+
+.category-item {
+  flex: 0 0 100%; /* Ensure each category takes full space */
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.arrow-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow-left {
+  left: 0;
+}
+
+.arrow-right {
+  right: 0;
+}
+
+/* Disabled arrow button */
+.arrow-button:disabled {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
+/* Hide arrows on larger screens */
+@media (min-width: 768px) {
+  .arrow-button {
+    display: none;
+  }
+}
