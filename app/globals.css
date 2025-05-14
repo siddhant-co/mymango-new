@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@import "keen-slider/keen-slider.min.css";
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -111,4 +113,17 @@ body {
   .arrow-button {
     display: none;
   }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 15s linear infinite;
 }

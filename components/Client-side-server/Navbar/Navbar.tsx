@@ -145,7 +145,7 @@ const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Desktop Navbar */}
-      <div className="hidden lg:flex justify-between items-center p-4 md:px-8">
+      <div className="hidden lg:flex justify-between items-center py-2 md:px-8">
         <Link href="/">
           <Image src="/MangoLogo.webp" alt="Logo" width={160} height={40} />
         </Link>
