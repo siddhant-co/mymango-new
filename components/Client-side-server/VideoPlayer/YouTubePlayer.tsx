@@ -18,7 +18,7 @@ export default function YouTubePlayer({
     : "";
 
   return (
-    <div className="relative w-full mx-auto aspect-video rounded-xl overflow-hidden px-4 sm:px-6 lg:px-0 lg:max-w-[1200px] mt-6">
+    <div className="relative w-full mx-auto aspect-video overflow-hidden px-4 sm:px-6 lg:px-0 lg:max-w-[1200px] mt-6">
       {/* Thumbnail - shown only if iframe not loaded yet */}
       {!iframeLoaded && (
         <img
