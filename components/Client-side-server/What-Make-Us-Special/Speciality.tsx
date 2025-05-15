@@ -47,7 +47,7 @@ const Speciality = (props: Props) => {
       </h1>
 
       <section
-        className="w-full overflow-hidden py-5 sm:py-40 bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left"
+        className="w-full h-[450px] overflow-hidden py-5  sm:py-40 bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left"
         style={{
           backgroundImage: `url('/WhatMakesSpecial.webp')`,
           backgroundSize: "cover",
@@ -58,9 +58,9 @@ const Speciality = (props: Props) => {
           <div className="w-full lg:w-1/2 flex justify-center sm:justify-center lg:justify-start"></div>
 
           {/* Right Side */}
-          <div className="w-full lg:w-1/2 md:w-full sm:w-1/2">
-            <div className="md:ml-20">
-              <h2 className="text-2xl lg:pb-3 sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 sm:mb-4 text-center sm:text-left mx-auto sm:mx-0">
+          <div className="w-full lg:w-1/2 md:w-full sm:w-1/2 ">
+            <div className="md:ml-20 mt-18 sm:mt-0">
+              <h2 className="text-2xl lg:pb-3 sm:text-3xl md:text-4xl lg:mt-[-60px] md:mt-[60px] lg:text-5xl font-semibold mb-6 sm:mb-4 text-center sm:text-left mx-auto sm:mx-0">
                 EARLY BIRD SPECIAL
               </h2>
 
@@ -96,12 +96,12 @@ const Speciality = (props: Props) => {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start lg:justify-start gap-4 mt-8 sm:mt-12 lg:mt-24 md:mt-20">
+              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-center lg:justify-start gap-4 mt-8 sm:mt-12 lg:mt-24 md:mt-20">
                 <Button
                   text="Shop Now"
                   className="bg-white text-black border border-black hover:bg-gray-100 px-6 py-2"
                 />
-                <div className="hidden sm:block border-t border-white w-32 md:w-80 lg:w-90 mt-2 sm:mt-0"></div>
+                <div className="hidden sm:block border-t border-white w-32 md:w-80 lg:w-90 mt-6 sm:mt-0"></div>
               </div>
             </div>
           </div>
