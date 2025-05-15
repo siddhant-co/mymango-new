@@ -12,7 +12,7 @@ import {
   fetchAllProducts,
   getTestimonials,
 } from "./Function";
-import YouTubePlayer from "@/components/Client-side-server/VideoPlayer/YouTubePlayer";
+import YouTubePlayer from "@/components/Client-side-server/VideoPlayer/YouTubePlayer ";
 
 const Home = async () => {
   const bannerdata = await fetchData("frontend/banners");
