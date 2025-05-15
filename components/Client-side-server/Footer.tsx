@@ -24,7 +24,7 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Contact Info */}
-            <div className="text-left">
+            <div className="text-left ">
               <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
               <p className="text-sm text-gray-600">
                 <strong>WhatsApp</strong>: +62 859 9999 999
@@ -39,7 +39,7 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Menu + Help side by side */}
-            <div className="flex justify-left items-start space-x-18">
+            <div className="flex justify-center items-start space-x-18">
               <div>
                 <h4 className="text-lg font-semibold mb-4 text-left">Menu</h4>
                 <ul className="space-y-2 text-sm text-gray-600 text-left">

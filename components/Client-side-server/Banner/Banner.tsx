@@ -22,7 +22,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
   };
 
   return (
-    <section className="w-full relative ">
+    <section className="w-full relative">
       {bannerDataArray.map((banner, index) => (
         <div key={index} className="relative w-full">
           {/* Banner Image */}
@@ -32,45 +32,42 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
               alt={banner.heading || `Banner ${index + 1}`}
               width={1920}
               height={1080}
-              className="rounded-none object-cover w-full h-[40vh] sm:h-[40vh] md:h-[40vh] lg:h-[90vh]"
-              // reduced mobile height from 50vh to 40vh only here
+              priority
+              className="w-full object-cover h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh]"
             />
           )}
 
-          {/* Overlay Text (Heading & Description) */}
+          {/* Optional dark overlay for text readability */}
+          <div className="absolute inset-0 bg-black/30 z-0" />
+
+          {/* Text Over Banner */}
           <div
             className="
-    absolute inset-0
-    flex flex-col justify-start items-center text-center
-    px-4 sm:px-10
-    pt-20 sm:pt-22 md:pt-32
-    z-10
-    lg:justify-top lg:items-start lg:text-left lg:px-20 lg:pb-20
-  "
+              absolute inset-0 z-10
+              flex flex-col justify-center items-center text-center
+              px-4 sm:px-8 md:px-12
+              lg:items-start lg:text-left lg:px-20
+            "
           >
             {banner.heading && (
-              <p className="mt-4 sm:mt-2 sm:mb-4 text-sm sm:text-xl md:text-xl font-semibold text-white md:mb-2 lg:mb-6 lg:text-2xl">
+              <p className="text-white font-semibold mb-2 sm:mb-4 text-base sm:text-lg md:text-xl lg:text-2xl">
                 {banner.heading}
               </p>
             )}
             {banner.description && (
-              <p className="text-lg sm:text-4xl md:text-4xl text-white max-w-4xl font-light lg:text-6xl">
+              <p className="text-white font-light max-w-3xl text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug sm:leading-snug">
                 {banner.description}
               </p>
             )}
           </div>
 
-          {/* Scroll Down Indicator (Hidden on Mobile) */}
+          {/* Scroll Down Indicator */}
           <div
             onClick={handleScroll}
             className="hidden sm:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce text-white z-20 items-center"
           >
-            <p className="text-left text-sm sm:text-xl mr-1 sm:mr-2">
-              Scroll Down
-            </p>
-            <div className="flex flex-col items-start gap-0.5">
-              <ChevronsDown size={18} className="sm:size-[25px]" />
-            </div>
+            <p className="text-sm sm:text-base md:text-lg mr-2">Scroll Down</p>
+            <ChevronsDown size={24} />
           </div>
         </div>
       ))}
