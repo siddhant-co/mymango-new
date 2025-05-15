@@ -35,7 +35,7 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
   return (
     <div
       className="py-10 px-4 sm:px-6 md:px-10 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('Vector (1).png')" }}
+      style={{ backgroundImage: "url('Vector.png')" }}
     >
       <h2
         className="text-2xl md:text-4xl mb-10 text-center font-playfair"
