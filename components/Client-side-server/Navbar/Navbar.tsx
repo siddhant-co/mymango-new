@@ -116,7 +116,9 @@ const Navbar: React.FC<NavbarProps> = ({
   `}
       >
         {/* Mobile & Tablet Top Bar */}
-        <div className="flex lg:hidden justify-between items-center px-2 py-3">
+        <div className="flex lg:hidden justify-between items-center px-2 py-4 md:py-6">
+          {" "}
+          {/* Increased padding for mobile view */}
           <Link href="/">
             <Image src="/MangoLogo.webp" alt="Logo" width={100} height={30} />
           </Link>
