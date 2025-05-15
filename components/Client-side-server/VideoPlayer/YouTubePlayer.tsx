@@ -32,7 +32,7 @@ export default function YouTubePlayer({
       {videoId ? (
         <iframe
           className="w-full h-full relative"
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1`}
+          src={`https://www.youtube.com/embed/7G67ifDqGF0?si=TKHugs3mIiI8Vc4f`}
           title="YouTube video player"
           allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
