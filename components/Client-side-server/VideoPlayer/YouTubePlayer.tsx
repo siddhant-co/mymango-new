@@ -39,7 +39,7 @@ export default function YouTubePlayer({
       {currentVideoId ? (
         <iframe
           key={currentVideoId} // Force iframe to reload when videoId changes
-          className="w-full h-full relative"
+          className="w-full h-[550px] relative"
           src={`https://www.youtube.com/embed/${currentVideoId}?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1`}
           title="YouTube video player"
           allow="autoplay; encrypted-media; fullscreen"
