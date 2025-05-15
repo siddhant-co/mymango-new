@@ -87,7 +87,9 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center text-center sm:text-left px-2 py-1">
                     <div className="flex flex-col p-0 sm:p-2 md:p-2">
-                      <h2 className="text-sm font-semibold">{product.name}</h2>
+                      <h2 className=" line-clamp-1 text-sm font-semibold">
+                        {product.name}
+                      </h2>
                       <p className="text-xs sm:text-sm text-[#f83a3a]">
                         ₹{displayPrice}
                         {basePrice !== displayPrice && (
