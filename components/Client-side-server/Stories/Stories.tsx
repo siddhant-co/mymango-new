@@ -60,9 +60,9 @@ const Stories = () => {
   };
 
   return (
-    <section className="pt-8 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="pt-8 mb-3 px-4 sm:px-6 lg:px-8 bg-white">
       <h1
-        className="text-2xl md:text-[48px]  mb-6 text-center font-playfair"
+        className="text-2xl md:text-[48px]  text-center font-playfair"
         style={{ color: "#3E3E3E" }}
       >
         READ OUR LATEST STORIES
@@ -88,12 +88,12 @@ const Stories = () => {
                       priority
                     />
                   </div>
+                  <p className="mt-2 ml-6 text-orange-500 font-semibold text-sm md:text-base">
+                    {post.product_category_name}
+                  </p>
 
                   <div className="p-6 flex flex-col justify-between flex-1">
                     <div>
-                      <p className="text-sm text-orange-500 font-semibold mb-2">
-                        {post.product_category_name}
-                      </p>
                       <div className="flex justify-between items-start gap-2">
                         <h3 className="text-lg font-semibold text-gray-900">
                           {post.title}
@@ -124,7 +124,7 @@ const Stories = () => {
         )}
 
         {/* Custom navigation arrows */}
-        <div className="relative flex items-center justify-center mt-10 w-full">
+        <div className="relative flex items-center justify-center mt-2 w-full">
           <div className="absolute left-0 w-[calc(50%-4.5rem)] border-t-2 border-gray-300"></div>
           <div className="absolute right-0 w-[calc(50%-4.5rem)] border-t-2 border-gray-300"></div>
 

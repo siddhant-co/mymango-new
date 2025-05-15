@@ -6,7 +6,7 @@ type Props = {};
 const Footer = (props: Props) => {
   return (
     <>
-      <footer className="bg-white py-2">
+      <footer className="bg-white pt-6 pb-4">
         <div className=" border-t-1 max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Divider */}
           <div className="border-t border-gray-200 mb-8"></div>
@@ -18,13 +18,13 @@ const Footer = (props: Props) => {
               <Image
                 src="/MangoLogo.webp"
                 alt="Company Logo"
-                width={140}
+                width={200}
                 height={40}
               />
             </div>
 
             {/* Contact Info */}
-            <div className="text-center">
+            <div className="text-left">
               <h4 className="text-lg font-semibold mb-2">Contact Us</h4>
               <p className="text-sm text-gray-600">
                 <strong>WhatsApp</strong>: +62 859 9999 999
@@ -39,10 +39,10 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Menu + Help side by side */}
-            <div className="flex justify-center items-start space-x-8">
+            <div className="flex justify-left items-start space-x-18">
               <div>
-                <h4 className="text-lg font-semibold mb-4 text-center">Menu</h4>
-                <ul className="space-y-2 text-sm text-gray-600 text-center">
+                <h4 className="text-lg font-semibold mb-4 text-left">Menu</h4>
+                <ul className="space-y-2 text-sm text-gray-600 text-left">
                   <li>Sale</li>
                   <li>New Arrivals</li>
                   <li>Formal Men</li>
@@ -52,10 +52,10 @@ const Footer = (props: Props) => {
                 </ul>
               </div>
               <div>
-                <h4 className="text-lg font-semibold mb-4 text-center">
+                <h4 className="text-lg font-semibold mb-4 text-left">
                   Get Help
                 </h4>
-                <ul className="space-y-2 text-sm text-gray-600 text-center">
+                <ul className="space-y-2 text-sm text-gray-600 text-left">
                   <li>FAQ</li>
                   <li>Customer Service</li>
                   <li>Refund and Return</li>
@@ -66,12 +66,12 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Account on a new row centered */}
-            <div className="flex justify-center">
+            <div className="flex justify-left ">
               <div>
-                <h4 className="text-lg font-semibold mb-4 text-center">
+                <h4 className="text-lg font-semibold mb-4 text-left">
                   Account
                 </h4>
-                <ul className="space-y-2 text-sm text-gray-600 text-center">
+                <ul className="space-y-2 text-sm text-gray-600 text-left">
                   <li>My Account</li>
                   <li>My Orders</li>
                   <li>Vouchers and Discounts</li>
@@ -92,7 +92,7 @@ const Footer = (props: Props) => {
                   height={40}
                 />
               </div>
-              <div className="text-sm text-gray-600 space-y-2">
+              <div className="text-sm text-gray-600 space-y-2 text-left">
                 <p>
                   <strong>WhatsApp</strong>: +62 859 9999 999
                 </p>
@@ -107,9 +107,9 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Menu */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Menu</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
+            <div className="text-center ml-4 mt-4">
+              <h4 className="text-lg font-semibold mb-4 text-left">Menu</h4>
+              <ul className="space-y-2 text-sm text-gray-600 text-left">
                 <li>Sale</li>
                 <li>New Arrivals</li>
                 <li>Formal Men</li>
@@ -120,9 +120,9 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Get Help */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Get Help</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
+            <div className="text-center ml-4 mt-4">
+              <h4 className="text-lg font-semibold mb-4 text-left">Get Help</h4>
+              <ul className="space-y-2 text-sm text-gray-600 text-left">
                 <li>FAQ</li>
                 <li>Customer Service</li>
                 <li>Refund and Return</li>
@@ -132,9 +132,9 @@ const Footer = (props: Props) => {
             </div>
 
             {/* Account */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Account</h4>
-              <ul className="space-y-2 text-sm text-gray-600">
+            <div className="text-center ml-4 mt-4">
+              <h4 className="text-lg font-semibold mb-4 text-left">Account</h4>
+              <ul className="space-y-2 text-sm text-gray-600 text-left">
                 <li>My Account</li>
                 <li>My Orders</li>
                 <li>Vouchers and Discounts</li>

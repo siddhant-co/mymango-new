@@ -47,7 +47,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
   };
 
   return (
-    <main className="px-2 sm:px-3 py-6 max-w-7xl mx-auto">
+    <main className="max-w-7xl mx-auto mb-3">
       <h1
         className="text-2xl md:text-[48px] mb-6 text-center font-playfair"
         style={{ color: "#3E3E3E" }}
@@ -55,7 +55,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
         DISCOVER ALL PRODUCTS
       </h1>
 
-      <div className="slider-container">
+      <div className="slider-container px-2 sm:px-3 ">
         <Slider {...settings} ref={sliderRef}>
           {products.map((product) => {
             const selected = selectedVariants[product.id];
@@ -66,10 +66,10 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
             return (
               <div key={product.id} className="px-2">
-                <div className=" border-[1px] border-[#9B9B9B] hover:shadow-md transition min-h-full w-full mb-6">
+                <div className=" border-[1px] border-[#C5C5C5] hover:shadow-md transition min-h-full w-full mb-6">
                   <div
-                    className="p-1 flex items-center justify-center relative"
-                    style={{ borderBottom: "1px solid #9B9B9B" }}
+                    className="p-1  flex items-center justify-center relative"
+                    style={{ borderBottom: "1px solid #C5C5C5" }}
                   >
                     <Image
                       src={`https://nxadmin.consociate.co.in${displayImage}`}
@@ -85,8 +85,8 @@ export default function ProductsPage({ products }: ProductsPageProps) {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center text-center sm:text-left px-2">
-                    <div className="flex flex-col p-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center text-center sm:text-left px-2 py-1">
+                    <div className="flex flex-col p-0 sm:p-2 md:p-2">
                       <h2 className="text-sm font-semibold">{product.name}</h2>
                       <p className="text-xs sm:text-sm text-[#f83a3a]">
                         ₹{displayPrice}
@@ -132,7 +132,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
                       </div>
                     </div>
 
-                    <div className="text-yellow-500 text-sm sm:text-base whitespace-nowrap mt-2 sm:mt-0">
+                    <div className="text-yellow-500 text-sm sm:text-base whitespace-nowrap  sm:mt-0">
                       ★★★★<span className="text-gray-300">★</span>
                     </div>
                   </div>
@@ -141,50 +141,49 @@ export default function ProductsPage({ products }: ProductsPageProps) {
             );
           })}
         </Slider>
-
-        {/* Custom Navigation */}
-        <div className="flex justify-center gap-3 items-center mb-6">
-          <div className="h-px flex-1 bg-gray-300" />
-          <button
-            onClick={() => sliderRef.current?.slickPrev()}
-            className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+      </div>
+      {/* Custom Navigation */}
+      <div className="flex justify-center gap-3 items-center ">
+        <div className="h-px flex-1 bg-gray-300" />
+        <button
+          onClick={() => sliderRef.current?.slickPrev()}
+          className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 text-black"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-black"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <button
-            onClick={() => sliderRef.current?.slickNext()}
-            className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <button
+          onClick={() => sliderRef.current?.slickNext()}
+          className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 text-black"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-black"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-          <div className="h-px flex-1 bg-gray-300" />
-        </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+        <div className="h-px flex-1 bg-gray-300" />
       </div>
     </main>
   );

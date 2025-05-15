@@ -24,7 +24,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
     mode: "snap",
     breakpoints: {
       "(max-width: 639px)": {
-        slides: { perView: 1, spacing: 10 },
+        slides: { perView: 2, spacing: 10 },
       },
       "(min-width: 640px) and (max-width: 767px)": {
         slides: { perView: 2, spacing: 12 },
@@ -65,21 +65,36 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
   const handlePrev = () => instanceRef.current?.prev();
 
   return (
-    <div className="py-6">
+    <div className="mb-3">
       {/* Marquee Heading */}
-      <div className="overflow-hidden whitespace-nowrap mb-6">
-        <div
-          className="inline-block animate-marquee text-3xl sm:text-4xl md:text-5xl px-4 bg-clip-text text-transparent"
-          style={{
-            backgroundImage:
-              "linear-gradient(101deg, rgba(255, 228, 49, 1), rgba(249, 32, 32, 1) 62%)",
-          }}
-        >
-          <span className="mx-8">New Arrivals</span>
-          <span className="mx-18">New Arrivals</span>
-          <span className="mx-18">New Arrivals</span>
-          <span className="mx-18">New Arrivals</span>
-          <span className="mx-18">New Arrivals</span>
+
+      <div className="relative overflow-hidden mb-6">
+        <div className="marquee-track flex gap-12 w-max">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={i}
+              className="text-2xl sm:text-4xl md:text-[48px] bg-clip-text text-transparent whitespace-nowrap"
+              style={{
+                backgroundImage:
+                  "linear-gradient(101deg, rgba(255, 228, 49, 1), rgba(249, 32, 32, 1) 62%)",
+              }}
+            >
+              New Arrivals
+            </span>
+          ))}
+          {/* Duplicate the same content immediately after */}
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={`dup-${i}`}
+              className="text-2xl sm:text-4xl md:text-[48px] bg-clip-text text-transparent whitespace-nowrap"
+              style={{
+                backgroundImage:
+                  "linear-gradient(101deg, rgba(255, 228, 49, 1), rgba(249, 32, 32, 1) 62%)",
+              }}
+            >
+              New Arrivals
+            </span>
+          ))}
         </div>
       </div>
 
@@ -98,7 +113,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
                 key={product.id}
                 className="keen-slider__slide bg-white shadow-sm flex flex-col overflow-hidden"
               >
-                <div className="relative w-full h-[180px] sm:h-[220px] border-b border-gray-300">
+                <div className="relative w-full h-[160px] sm:h-[200px] border-b border-gray-300">
                   <button className="absolute top-1 right-1 z-10 bg-white p-1 rounded-full shadow hover:text-red-500 h-8 w-8 flex items-center justify-center">
                     <Heart size={16} strokeWidth={1.5} />
                   </button>
@@ -137,9 +152,9 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
                                 [product.id]: variant,
                               }))
                             }
-                            className={`w-13 h-13 p-1 border-[1px] border-[#C5C5C5] cursor-pointer rounded-full overflow-hidden flex items-center justify-center hover:border-blue-400
+                            className={`w-11 h-11 p-1 border-[1px] border-[#C5C5C5] cursor-pointer rounded-full overflow-hidden flex items-center justify-center hover:border-blue-400
         ${selected?.id === variant.id ? "ring-2 ring-orange-400" : ""}
-        sm:w-13 sm:h-13 lg:w-8 lg:h-8`}
+        sm:w-11 sm:h-11 lg:w-8 lg:h-8`}
                           >
                             {variant.images?.[0] && (
                               <Image
@@ -166,7 +181,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
       </div>
 
       {/* Prev / Next Buttons */}
-      <div className="flex justify-center items-center gap-3 px-5 mt-3">
+      <div className="flex justify-center items-center gap-3  mt-3">
         <div className="h-px flex-1 bg-gray-300" />
         <button
           onClick={handlePrev}

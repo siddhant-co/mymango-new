@@ -101,7 +101,7 @@ const Speciality = (props: Props) => {
                   text="Shop Now"
                   className="bg-white text-black border border-black hover:bg-gray-100 px-6 py-2"
                 />
-                <div className="border-t border-white w-32 md:w-80 lg:w-90 mt-2 sm:mt-0"></div>
+                <div className="hidden sm:block border-t border-white w-32 md:w-80 lg:w-90 mt-2 sm:mt-0"></div>
               </div>
             </div>
           </div>

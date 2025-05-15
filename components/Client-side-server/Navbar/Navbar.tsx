@@ -123,7 +123,9 @@ const Navbar: React.FC<NavbarProps> = ({
             <Image src="/MangoLogo.webp" alt="Logo" width={100} height={30} />
           </Link>
           <div className="flex flex-1 justify-center mx-4">
-            <div className="relative w-[80%] max-w-sm">
+            <div className="relative w-full max-w-md">
+              {" "}
+              {/* Increased width */}
               <span className="absolute inset-y-0 left-3 flex items-center">
                 <svg
                   className="w-5 h-5 text-[#9B9B9B]"
@@ -146,13 +148,7 @@ const Navbar: React.FC<NavbarProps> = ({
               />
             </div>
           </div>
-          <div className="flex items-center gap-3 ml-auto mr-2">
-            <CircleUserRound
-              className={`${dynamicTextColor} w-5 h-5 transition-colors duration-300`}
-            />
-            <ShoppingBag
-              className={`${dynamicTextColor} w-5 h-5 transition-colors duration-300`}
-            />
+          <div className="flex items-center ml-auto mr-2">
             {isMobileMenuOpen ? (
               <X
                 className="text-black w-6 h-6 cursor-pointer"
@@ -251,6 +247,10 @@ const Navbar: React.FC<NavbarProps> = ({
             isMobileMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
           } bg-white px-4`}
         >
+          <div className="flex justify-around items-center py-3">
+            <CircleUserRound className="text-gray-800 w-6 h-6" />
+            <ShoppingBag className="text-gray-800 w-6 h-6" />
+          </div>
           <ul className="flex flex-col gap-3 text-sm py-4">
             {navData.map((item, index) => (
               <li key={item.pk}>

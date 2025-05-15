@@ -34,18 +34,18 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
 
   return (
     <div
-      className="py-10 px-4 sm:px-6 md:px-10 bg-cover bg-center bg-no-repeat"
+      className="mb-3 pb-10  bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('Vector.png')" }}
     >
       <h2
-        className="text-2xl md:text-4xl mb-10 text-center font-playfair"
+        className="text-2xl md:text-[48px] mb-10 text-center font-playfair"
         style={{ color: "#3E3E3E" }}
       >
         WHAT OUR USERS ARE SAYING
       </h2>
 
       {/* Wrapper relative for absolute buttons */}
-      <div className="relative max-w-[1200px] mx-auto">
+      <div className="relative max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 py-5">
         <Swiper
           modules={[Navigation]}
           loop={true}
@@ -70,6 +70,7 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
               spaceBetween: 30,
             },
           }}
+          className=""
         >
           {testimonials.map((t) => (
             <SwiperSlide key={t.id}>
@@ -108,57 +109,56 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
             </SwiperSlide>
           ))}
         </Swiper>
+      </div>
+      {/* Prev Button - absolute left */}
 
-        {/* Prev Button - absolute left */}
-
-        <div className="flex justify-center items-center gap-3  mt-3">
-          <div className="h-px flex-1 bg-gray-300" />
-          <button
-            onClick={handlePrev}
-            disabled={!swiperInstance}
-            className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
-            aria-label="Previous Slide"
+      <div className="flex justify-center items-center gap-3  mt-3">
+        <div className="h-px flex-1 bg-gray-300" />
+        <button
+          onClick={handlePrev}
+          disabled={!swiperInstance}
+          className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+          aria-label="Previous Slide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 text-black"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-black"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
 
-          {/* Next Button - absolute right */}
-          <button
-            onClick={handleNext}
-            disabled={!swiperInstance}
-            className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
-            aria-label="Next Slide"
+        {/* Next Button - absolute right */}
+        <button
+          onClick={handleNext}
+          disabled={!swiperInstance}
+          className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+          aria-label="Next Slide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6 text-black"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-black"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-          <div className="h-px flex-1 bg-gray-300" />
-        </div>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+        <div className="h-px flex-1 bg-gray-300" />
       </div>
     </div>
   );

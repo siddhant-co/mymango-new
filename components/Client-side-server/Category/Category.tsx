@@ -27,12 +27,12 @@ export default function Category({ categories }: CategoryProps) {
               `}
             >
               {/* Inner container with overflow-hidden to crop image */}
-              <div className="relative overflow-hidden h-60 sm:h-64 md:h-72 w-full">
+              <div className="relative overflow-hidden h-60 sm:h-64 md:h-72 w-full m:py-40 bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left">
                 <Image
                   src={`${BASE_URL}${category.image}`}
                   alt={category.title}
                   fill
-                  className="object-cover"
+                  className="w-full"
                 />
                 <div className="absolute top-0 left-0 p-4 bg-opacity-30 flex items-start justify-start w-full">
                   <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-semibold uppercase tracking-wider">
@@ -55,12 +55,12 @@ export default function Category({ categories }: CategoryProps) {
                 ${index === 2 ? "lg:flex-[1.5]" : "lg:flex-[0.65]"}
               `}
             >
-              <div className="relative overflow-hidden h-60 sm:h-64 md:h-72 w-full">
+              <div className="relative overflow-hidden h-60 sm:h-64 md:h-72 w-full ">
                 <Image
                   src={`${BASE_URL}${category.image}`}
                   alt={category.title}
                   fill
-                  className="object-cover"
+                  className="w-full overflow-hidden  bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left "
                 />
                 <div className="absolute top-0 left-0 p-4 bg-opacity-30 flex items-start justify-start w-full">
                   <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-semibold uppercase tracking-wider">
