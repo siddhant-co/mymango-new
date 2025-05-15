@@ -96,6 +96,9 @@ const Navbar: React.FC<NavbarProps> = ({
     </div>
   );
 
+  const dynamicTextColor =
+    isScrolled || isMobileMenuOpen ? "text-black" : "text-white";
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -115,7 +118,9 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="relative w-[80%] max-w-sm">
             <span className="absolute inset-y-0 left-3 flex items-center">
               <svg
-                className="w-5 h-5 text-gray-600"
+                className={`w-5 h-5 transition-colors duration-300 ${
+                  isScrolled || isMobileMenuOpen ? "text-black" : "text-white"
+                }`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -131,13 +136,21 @@ const Navbar: React.FC<NavbarProps> = ({
             <input
               type="text"
               placeholder="Search"
-              className="pl-10 pr-4 py-2 rounded-full w-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+              className={`pl-10 pr-4 py-2 rounded-full w-full border text-sm focus:outline-none focus:ring-2 transition-all duration-300 ${
+                isScrolled || isMobileMenuOpen
+                  ? "bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gray-400"
+                  : "bg-transparent border-white text-white placeholder-white focus:ring-white"
+              }`}
             />
           </div>
         </div>
         <div className="flex items-center gap-3 ml-auto mr-2">
-          <CircleUserRound className="text-black w-5 h-5" />
-          <ShoppingBag className="text-black w-5 h-5" />
+          <CircleUserRound
+            className={`${dynamicTextColor} w-5 h-5 transition-colors duration-300`}
+          />
+          <ShoppingBag
+            className={`${dynamicTextColor} w-5 h-5 transition-colors duration-300`}
+          />
           {isMobileMenuOpen ? (
             <X
               className="text-black w-6 h-6 cursor-pointer"
@@ -145,7 +158,7 @@ const Navbar: React.FC<NavbarProps> = ({
             />
           ) : (
             <Menu
-              className="text-black w-6 h-6 cursor-pointer"
+              className={`${dynamicTextColor} w-6 h-6 cursor-pointer`}
               onClick={() => setIsMobileMenuOpen(true)}
             />
           )}
@@ -187,7 +200,6 @@ const Navbar: React.FC<NavbarProps> = ({
                   </span>
                 )}
               </Link>
-
               {index === 1 && categories.length > 0 && renderCategoryDropdown()}
             </div>
           ))}
@@ -222,7 +234,6 @@ const Navbar: React.FC<NavbarProps> = ({
               }`}
             />
           </div>
-
           <CircleUserRound
             className={`transition-colors duration-300 ${
               isScrolled ? "text-gray-800" : "text-white"

@@ -25,6 +25,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
     <section className="w-full relative">
       {bannerDataArray.map((banner, index) => (
         <div key={index} className="relative w-full">
+          {/* Banner Image */}
           {banner.image && process.env.NEXT_PUBLIC_API_BASE_URL && (
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banner.image}`}
@@ -35,24 +36,21 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
             />
           )}
 
-          {/* Heading */}
-          {/* Heading */}
-          {banner.heading && (
-            <p className="absolute top-32 sm:top-[80px] md:top-[180px] left-6 sm:left-16 text-left text-2xl sm:text-3xl md:text-4xl font-semibold text-white">
-              {banner.heading}
-            </p>
-          )}
-
-          {/* Description */}
-          {banner.description && (
-            <p className="absolute top-[11rem] sm:top-[10rem] md:top-[250px] left-6 sm:left-16 text-left text-base sm:text-sm md:text-lg text-white font-thin pr-6 sm:pr-[30px] max-w-[1000px]">
-              <span className="text-lg sm:text-lg md:text-[30px] text-white font-medium">
+          {/* Overlay Text (Heading & Description) */}
+          <div className="absolute inset-0 flex flex-col justify-start items-center text-center px-4 sm:px-10 pt-26 sm:pt-24 md:pt-32 z-10">
+            {banner.heading && (
+              <p className="text-3xl sm:text-5xl md:text-6xl font-semibold text-white mb-4">
+                {banner.heading}
+              </p>
+            )}
+            {banner.description && (
+              <p className="text-base sm:text-lg md:text-xl text-white max-w-3xl font-light">
                 {banner.description}
-              </span>
-            </p>
-          )}
+              </p>
+            )}
+          </div>
 
-          {/* Scroll Down - hidden only on mobile */}
+          {/* Scroll Down Indicator (Hidden on Mobile) */}
           <div
             onClick={handleScroll}
             className="hidden sm:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce text-white z-20 items-center"

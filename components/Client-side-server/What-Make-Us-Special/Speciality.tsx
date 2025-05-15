@@ -47,7 +47,7 @@ const Speciality = (props: Props) => {
       </h1>
 
       <section
-        className="w-full overflow-hidden py-40 bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left"
+        className="w-full overflow-hidden py-5 sm:py-40 bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left"
         style={{
           backgroundImage: `url('/WhatMakesSpecial.webp')`,
           backgroundSize: "cover",
@@ -58,44 +58,45 @@ const Speciality = (props: Props) => {
           <div className="w-full lg:w-1/2 flex justify-center sm:justify-center lg:justify-start"></div>
 
           {/* Right Side */}
-          <div className="w-full lg:w-1/2 md:w-1/1 sm:w-1/2 lg:text-center md:text-center ">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 sm:mb-4">
-              EARLY BIRD SPECIAL
-            </h2>
+          <div className="w-full lg:w-1/2 md:w-full sm:w-1/2">
+            <div className="md:ml-20">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-6 sm:mb-4 text-center sm:text-left mx-auto sm:mx-0">
+                EARLY BIRD SPECIAL
+              </h2>
 
-            {/* Timer – Centered for tablet */}
-            <div className="flex flex-wrap justify-center sm:justify-center md:justify-center gap-4 sm:gap-6 items-center">
-              {[
-                { label: "Days", value: timeLeft.days },
-                { label: "Hours", value: timeLeft.hours },
-                { label: "Minutes", value: timeLeft.minutes },
-                { label: "Seconds", value: timeLeft.seconds },
-              ].map((item, index, array) => (
-                <div key={index} className="flex items-center gap-2 sm:gap-4">
-                  <div className="text-white text-center">
-                    <p className="text-3xl sm:text-4xl font-bold">
-                      {item.value}
-                    </p>
-                    <p className="text-xs sm:text-sm uppercase tracking-wide">
-                      {item.label}
-                    </p>
-                  </div>
-                  {index < array.length - 1 && (
-                    <div className="px-2 sm:px-4">
-                      <div className="h-6 w-px bg-white"></div>
+              <div className="flex flex-wrap justify-center md:justify-start lg:justify-start gap-4 sm:gap-6 items-center">
+                {/* timer items */}
+                {[
+                  { label: "Days", value: timeLeft.days },
+                  { label: "Hours", value: timeLeft.hours },
+                  { label: "Minutes", value: timeLeft.minutes },
+                  { label: "Seconds", value: timeLeft.seconds },
+                ].map((item, index, array) => (
+                  <div key={index} className="flex items-center gap-2 sm:gap-4">
+                    <div className="text-white text-center">
+                      <p className="text-3xl sm:text-4xl font-bold">
+                        {item.value}
+                      </p>
+                      <p className="text-xs sm:text-sm uppercase tracking-wide">
+                        {item.label}
+                      </p>
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                    {index < array.length - 1 && (
+                      <div className="px-2 sm:px-4">
+                        <div className="h-6 w-px bg-white"></div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
 
-            {/* Button and Line – Centered for tablet */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 sm:mt-12">
-              <Button
-                text="Shop Now"
-                className="bg-white text-black border border-black hover:bg-gray-100 px-6 py-2"
-              />
-              <div className="border-t border-white w-32 md:w-40 lg:w-52 mt-2 sm:mt-0"></div>
+              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start lg:justify-start gap-4 mt-8 sm:mt-12 lg:mt-24 md:mt-20">
+                <Button
+                  text="Shop Now"
+                  className="bg-white text-black border border-black hover:bg-gray-100 px-6 py-2"
+                />
+                <div className="border-t border-white w-32 md:w-40 lg:w-52 mt-2 sm:mt-0"></div>
+              </div>
             </div>
           </div>
         </div>

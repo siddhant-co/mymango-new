@@ -12,7 +12,7 @@ import {
   fetchAllProducts,
   getTestimonials,
 } from "./Function";
-// import YouTubePlayer from "@/components/Client-side-server/VideoPlayer/YouTubePlayer";
+import YouTubePlayer from "@/components/Client-side-server/VideoPlayer/YouTubePlayer";
 
 const Home = async () => {
   const bannerdata = await fetchData("frontend/banners");
@@ -41,11 +41,7 @@ const Home = async () => {
       <NewArrivals products={allProducts} />
       <TestimonialSliderClient testimonials={testimonials} />
 
-      {/* <YouTubePlayer
-        thumbnail="/VideoThumbnail.png"
-        videoId="FLGOZSFnjV4"
-        localVideoSrc="/Choose from a variety of colours to complement your taste and enhance your area with _mangochairs(1080P_HD)(720P_60FPS)"
-      /> */}
+      <YouTubePlayer thumbnail="/VideoThumbnail.png" videoId="FLGOZSFnjV4" />
 
       <Stories />
     </>

@@ -60,7 +60,7 @@ const Stories = () => {
   };
 
   return (
-    <section className="pt-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="pt-8 px-4 sm:px-6 lg:px-8 bg-white">
       <h1
         className="text-2xl md:text-[48px]  mb-6 text-center font-playfair"
         style={{ color: "#3E3E3E" }}

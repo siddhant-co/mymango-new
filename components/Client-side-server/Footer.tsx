@@ -37,7 +37,7 @@ const Footer = (props: Props) => {
             </p>
           </div>
 
-          {/* Menu + Help + Account */}
+          {/* Menu + Help side by side */}
           <div className="flex justify-center items-start space-x-8">
             <div>
               <h4 className="text-lg font-semibold mb-4 text-center">Menu</h4>
@@ -62,6 +62,10 @@ const Footer = (props: Props) => {
                 <li>Shipping</li>
               </ul>
             </div>
+          </div>
+
+          {/* Account on a new row centered */}
+          <div className="flex justify-center">
             <div>
               <h4 className="text-lg font-semibold mb-4 text-center">
                 Account
