@@ -5,6 +5,7 @@ import Navbar from "@/components/Client-side-server/Navbar/Navbar";
 import Footer from "@/components/Client-side-server/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import CouponBanner from "@/components/Client-side-server/CouponBanner/CouponBanner";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],

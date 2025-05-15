@@ -16,13 +16,13 @@ export default function Category({ categories }: CategoryProps) {
   return (
     <div className="w-full px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* First Row */}
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 ">
         {categories.slice(0, 3).map((category, index) => {
           return (
             // Outer wrapper to show shadow on hover
             <div
               key={category.id}
-              className={`cursor-pointer hover:shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,_rgba(60,64,67,0.15)_0px_1px_3px_1px] transition-shadow duration-200 ease-in-out
+              className={`cursor-pointer hover:shadow-md hover:z-10 transition-shadow duration-200 ease-in-out
                 ${index === 0 ? "lg:flex-[1.5]" : "lg:flex-[0.65]"}
               `}
             >
@@ -46,12 +46,12 @@ export default function Category({ categories }: CategoryProps) {
       </div>
 
       {/* Second Row */}
-      <div className="flex flex-col lg:flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4 ">
         {categories.slice(3, 6).map((category, index) => {
           return (
             <div
               key={category.id}
-              className={`cursor-pointer hover:shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,_rgba(60,64,67,0.15)_0px_1px_3px_1px] transition-shadow duration-200 ease-in-out
+              className={`cursor-pointer hover:shadow-md hover:z-10 transition-shadow duration-200 ease-in-out
                 ${index === 2 ? "lg:flex-[1.5]" : "lg:flex-[0.65]"}
               `}
             >
