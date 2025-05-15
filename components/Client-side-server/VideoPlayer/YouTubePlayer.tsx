@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface YouTubePlayerProps {
   thumbnail: string;
@@ -12,14 +12,21 @@ export default function YouTubePlayer({
   videoId,
 }: YouTubePlayerProps) {
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [currentVideoId, setCurrentVideoId] = useState(videoId);
 
-  const fallbackThumbnail = videoId
-    ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+  useEffect(() => {
+    // Reset iframe load state when videoId changes
+    setIframeLoaded(false);
+    setCurrentVideoId(videoId);
+  }, [videoId]);
+
+  const fallbackThumbnail = currentVideoId
+    ? `https://img.youtube.com/vi/${currentVideoId}/maxresdefault.jpg`
     : "";
 
   return (
     <div className="relative w-full mx-auto aspect-video overflow-hidden px-4 sm:px-6 lg:px-0 lg:max-w-[1200px] mt-6">
-      {/* Thumbnail - shown only if iframe not loaded yet */}
+      {/* Thumbnail shown until iframe loads */}
       {!iframeLoaded && (
         <img
           src={fallbackThumbnail || thumbnail}
@@ -29,10 +36,11 @@ export default function YouTubePlayer({
         />
       )}
 
-      {videoId ? (
+      {currentVideoId ? (
         <iframe
+          key={currentVideoId} // Force iframe to reload when videoId changes
           className="w-full h-full relative"
-          src={`https://www.youtube.com/embed/7G67ifDqGF0?si=TKHugs3mIiI8Vc4f`}
+          src={`https://www.youtube.com/embed/${currentVideoId}?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1`}
           title="YouTube video player"
           allow="autoplay; encrypted-media; fullscreen"
           allowFullScreen
