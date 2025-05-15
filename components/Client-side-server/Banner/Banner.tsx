@@ -43,7 +43,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
     absolute inset-0
     flex flex-col justify-start items-center text-center
     px-4 sm:px-10
-    pt-18 sm:pt-22 md:pt-32
+    pt-20 sm:pt-22 md:pt-32
     z-10
     lg:justify-top lg:items-start lg:text-left lg:px-20 lg:pb-20
   "
