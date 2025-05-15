@@ -66,13 +66,10 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
             return (
               <div key={product.id} className="px-2">
-                <div
-                  className="border shadow hover:shadow-md transition min-h-full w-full mb-6"
-                  style={{ border: "1px solid #9B9B9B" }}
-                >
+                <div className=" border-[1px] border-[#9B9B9B] hover:shadow-md transition min-h-full w-full mb-6">
                   <div
                     className="p-1 flex items-center justify-center relative"
-                    style={{ borderBottom: "1px solid gray" }}
+                    style={{ borderBottom: "1px solid #9B9B9B" }}
                   >
                     <Image
                       src={`https://nxadmin.consociate.co.in${displayImage}`}
@@ -113,9 +110,9 @@ export default function ProductsPage({ products }: ProductsPageProps) {
                                   [product.id]: variant,
                                 }))
                               }
-                              className={`w-8 h-8 border cursor-pointer rounded-full overflow-hidden flex items-center justify-center ${
+                              className={`w-8 h-8 border-[1px] border-[#C5C5C5]  cursor-pointer rounded-full overflow-hidden flex items-center justify-center hover:border-blue-400 ${
                                 selected?.id === variant.id
-                                  ? "ring-2 ring-blue-400"
+                                  ? "ring-2 ring-orange-400"
                                   : ""
                               }`}
                             >
@@ -150,15 +147,41 @@ export default function ProductsPage({ products }: ProductsPageProps) {
           <div className="h-px flex-1 bg-gray-300" />
           <button
             onClick={() => sliderRef.current?.slickPrev()}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white-200 shadow hover:bg-gray-300"
+            className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
           >
-            <ChevronLeft size={24} />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
           </button>
           <button
             onClick={() => sliderRef.current?.slickNext()}
-            className="flex items-center justify-center w-10 h-10 rounded-full bg-white-200 shadow hover:bg-gray-300"
+            className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
           >
-            <ChevronRight size={24} />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-6 h-6 text-black"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </button>
           <div className="h-px flex-1 bg-gray-300" />
         </div>
