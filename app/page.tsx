@@ -39,11 +39,11 @@ const Home = async () => {
       <WhyChooseUsSection />
       <ProductsPage products={products} />
       <NewArrivals products={allProducts} />
-      <TestimonialSliderClient testimonials={testimonials} />
 
       <YouTubePlayer />
 
       <Stories />
+      <TestimonialSliderClient testimonials={testimonials} />
     </>
   );
 };
