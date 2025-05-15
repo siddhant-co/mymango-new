@@ -22,7 +22,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
   };
 
   return (
-    <section className="w-full relative">
+    <section className="w-full relative ">
       {bannerDataArray.map((banner, index) => (
         <div key={index} className="relative w-full">
           {/* Banner Image */}

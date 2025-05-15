@@ -38,7 +38,7 @@ const Speciality = (props: Props) => {
   }, []);
 
   return (
-    <>
+    <div className="mb-12">
       <h1
         className="text-2xl md:text-[48px]  mb-6 text-center font-playfair"
         style={{ color: "#3E3E3E" }}
@@ -107,7 +107,7 @@ const Speciality = (props: Props) => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

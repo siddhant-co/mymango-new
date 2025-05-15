@@ -47,7 +47,7 @@ const WhyChooseUsSection = () => {
 
   return (
     <div className="bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 ">
         <div className="flex flex-col gap-8 lg:grid lg:grid-cols-3">
           {whyChooseUsData.map((item, index) => (
             <div

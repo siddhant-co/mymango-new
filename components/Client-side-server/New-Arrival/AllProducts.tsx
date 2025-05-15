@@ -47,7 +47,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
   };
 
   return (
-    <main className="max-w-7xl mx-auto mb-3">
+    <main className="max-w-7xl mx-auto mb-3 ">
       <h1
         className="text-2xl md:text-[48px] mb-6 text-center font-playfair"
         style={{ color: "#3E3E3E" }}
