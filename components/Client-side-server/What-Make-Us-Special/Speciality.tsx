@@ -39,9 +39,12 @@ const Speciality = (props: Props) => {
 
   return (
     <>
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-center my-6 mb-14 tracking-widest px-4">
+      <h1
+        className="text-2xl md:text-[48px]  mb-6 text-center font-playfair"
+        style={{ color: "#3E3E3E" }}
+      >
         HERE'S WHAT MAKES US SPECIAL
-      </h2>
+      </h1>
 
       <section
         className="w-full overflow-hidden py-40 bg-cover sm:bg-center md:bg-center bg-no-repeat bg-left"

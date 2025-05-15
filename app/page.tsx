@@ -12,6 +12,7 @@ import {
   fetchAllProducts,
   getTestimonials,
 } from "./Function";
+// import YouTubePlayer from "@/components/Client-side-server/VideoPlayer/YouTubePlayer";
 
 const Home = async () => {
   const bannerdata = await fetchData("frontend/banners");
@@ -20,21 +21,32 @@ const Home = async () => {
   const products = await fetchAllProducts();
   const testimonials = await getTestimonials();
 
-  console.log("Categories from API:", response);
-
   const categories = response.product_categories || [];
 
   return (
     <>
       <Banner bannerEndpoint={bannerdata} />
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-center my-6 mb-0 tracking-widest px-4">
-        BROWSE THROUGH OUR CATEGORIES
-      </h2>
-      <Category categories={categories} /> <Speciality />
+
+      <h1
+        className="text-2xl md:text-[48px] mt-6 text-center font-playfair"
+        style={{ color: "#3E3E3E" }}
+      >
+        BROWSE THROUGH OUR CATEGORY
+      </h1>
+
+      <Category categories={categories} />
+      <Speciality />
       <WhyChooseUsSection />
       <ProductsPage products={products} />
       <NewArrivals products={allProducts} />
       <TestimonialSliderClient testimonials={testimonials} />
+
+      {/* <YouTubePlayer
+        thumbnail="/VideoThumbnail.png"
+        videoId="FLGOZSFnjV4"
+        localVideoSrc="/Choose from a variety of colours to complement your taste and enhance your area with _mangochairs(1080P_HD)(720P_60FPS)"
+      /> */}
+
       <Stories />
     </>
   );

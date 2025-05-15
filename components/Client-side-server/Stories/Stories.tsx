@@ -61,9 +61,12 @@ const Stories = () => {
 
   return (
     <section className="pt-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-center mt-[-6px] mb-10 sm:mt-[-10px] sm:mb-[20px] tracking-widest px-4">
+      <h1
+        className="text-2xl md:text-[48px]  mb-6 text-center font-playfair"
+        style={{ color: "#3E3E3E" }}
+      >
         READ OUR LATEST STORIES
-      </h2>
+      </h1>
       <div className="max-w-7xl mx-auto">
         {blogs.length > 0 ? (
           <Slider {...settings} ref={sliderRef}>
