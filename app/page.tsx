@@ -41,7 +41,7 @@ const Home = async () => {
       <NewArrivals products={allProducts} />
       <TestimonialSliderClient testimonials={testimonials} />
 
-      <YouTubePlayer thumbnail="/VideoThumbnail.png" videoId="FLGOZSFnjV4" />
+      <YouTubePlayer />
 
       <Stories />
     </>

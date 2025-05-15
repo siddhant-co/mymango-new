@@ -46,14 +46,14 @@ const WhyChooseUsSection = () => {
   }
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex flex-col gap-8 lg:grid lg:grid-cols-3">
           {whyChooseUsData.map((item, index) => (
             <div
               key={item.id}
               className={`
-      bg-white shadow-md p-6 border border-10 border-[#b0b0b0]
+      bg-white shadow-md p-6 border border-18 border-[#f2f2f2f2]
       flex flex-col items-center text-center w-full
       ${
         index === 0

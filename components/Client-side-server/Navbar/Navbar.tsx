@@ -118,9 +118,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="relative w-[80%] max-w-sm">
             <span className="absolute inset-y-0 left-3 flex items-center">
               <svg
-                className={`w-5 h-5 transition-colors duration-300 ${
-                  isScrolled || isMobileMenuOpen ? "text-black" : "text-white"
-                }`}
+                className="w-5 h-5 text-[#9B9B9B]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -136,11 +134,7 @@ const Navbar: React.FC<NavbarProps> = ({
             <input
               type="text"
               placeholder="Search"
-              className={`pl-10 pr-4 py-2 rounded-full w-full border text-sm focus:outline-none focus:ring-2 transition-all duration-300 ${
-                isScrolled || isMobileMenuOpen
-                  ? "bg-white border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gray-400"
-                  : "bg-transparent border-white text-white placeholder-white focus:ring-white"
-              }`}
+              className="pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-none text-sm w-full placeholder-[#9B9B9B] text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-300"
             />
           </div>
         </div>
@@ -209,9 +203,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="relative w-52">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
-                className={`w-5 h-5 transition-colors duration-300 ${
-                  isScrolled ? "text-gray-600" : "text-white"
-                }`}
+                className="w-5 h-5 text-[#9B9B9B]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -227,11 +219,7 @@ const Navbar: React.FC<NavbarProps> = ({
             <input
               type="text"
               placeholder="Search"
-              className={`pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 text-sm w-full transition-all duration-300 ${
-                isScrolled
-                  ? "bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gray-400"
-                  : "bg-transparent border border-white text-white placeholder-white focus:ring-white"
-              }`}
+              className="pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-none text-sm w-full placeholder-[#9B9B9B] text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-300"
             />
           </div>
           <CircleUserRound
@@ -296,7 +284,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   )}
                 </>
               ) : (
-                <Link href={item.link} onClick={handleCloseMenu}>
+                <Link
+                  href={item.link}
+                  onClick={handleCloseMenu}
+                  className="block text-sm text-gray-800 hover:text-orange-500"
+                >
                   {item.name}
                 </Link>
               )}

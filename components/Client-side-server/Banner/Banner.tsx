@@ -32,19 +32,29 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
               alt={banner.heading || `Banner ${index + 1}`}
               width={1920}
               height={1080}
-              className="rounded-none object-cover w-full h-[50vh] sm:h-[40vh] md:h-[52vh] lg:h-auto"
+              className="rounded-none object-cover w-full h-[40vh] sm:h-[40vh] md:h-[40vh] lg:h-[90vh]"
+              // reduced mobile height from 50vh to 40vh only here
             />
           )}
 
           {/* Overlay Text (Heading & Description) */}
-          <div className="absolute inset-0 flex flex-col justify-start items-center text-center px-4 sm:px-10 pt-26 sm:pt-24 md:pt-32 z-10">
+          <div
+            className="
+    absolute inset-0
+    flex flex-col justify-start items-center text-center
+    px-4 sm:px-10
+    pt-16 sm:pt-22 md:pt-32
+    z-10
+    lg:justify-top lg:items-start lg:text-left lg:px-20 lg:pb-20
+  "
+          >
             {banner.heading && (
-              <p className="text-3xl sm:text-5xl md:text-6xl font-semibold text-white mb-4">
+              <p className="mt-4 sm:mt-2 sm:mb-4 text-sm sm:text-xl md:text-xl font-semibold text-white md:mb-2 lg:mb-6 lg:text-2xl">
                 {banner.heading}
               </p>
             )}
             {banner.description && (
-              <p className="text-base sm:text-lg md:text-xl text-white max-w-3xl font-light">
+              <p className="text-lg sm:text-4xl md:text-4xl text-white max-w-4xl font-light lg:text-6xl">
                 {banner.description}
               </p>
             )}
