@@ -12,25 +12,25 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
     ? bannerEndpoint.banners
     : [];
 
-  // Removed handleScroll - no window access in server components
-
   return (
     <section className="w-full relative">
       {bannerDataArray.map((banner, index) => (
-        <div key={index} className="relative w-full">
-          {/* Banner Image */}
+        <div
+          key={index}
+          className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh]"
+        >
+          {/* Optimized Banner Image */}
           {banner.image && process.env.NEXT_PUBLIC_API_BASE_URL && (
             <Image
               src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${banner.image}`}
               alt={banner.heading || `Banner ${index + 1}`}
-              width={1920}
-              height={1080}
-              priority
-              className="w-full object-cover h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[90vh]"
+              fill
+              priority={index === 0}
+              className="object-cover"
             />
           )}
 
-          {/* Optional dark overlay for text readability */}
+          {/* Overlay for better text contrast */}
           <div className="absolute inset-0 bg-black/30 z-0" />
 
           {/* Text Over Banner */}
@@ -54,7 +54,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
             )}
           </div>
 
-          {/* Scroll Down Indicator - purely visual, no onClick */}
+          {/* Scroll Down Indicator */}
           <div className="hidden sm:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 cursor-default animate-bounce text-white z-20 items-center">
             <p className="text-sm sm:text-base md:text-lg mr-2">Scroll Down</p>
             <ChevronsDown size={24} />

@@ -44,7 +44,6 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
         WHAT OUR USERS ARE SAYING
       </h2>
 
-      {/* Wrapper relative for absolute buttons */}
       <div className="relative max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 py-5">
         <Swiper
           modules={[Navigation]}
@@ -79,7 +78,7 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
                   className={`bg-white rounded-xl p-6 text-center shadow-lg transition-transform duration-300
                     ${isActive ? "scale-105 z-30 shadow-xl" : "scale-90  z-10"}
                   `}
-                  style={{ height: "320px" }} // fixed height for all cards
+                  style={{ height: "320px" }}
                 >
                   <div className="flex items-center justify-center gap-4 mb-4">
                     <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-orange-400">
@@ -89,6 +88,7 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
                         width={80}
                         height={80}
                         className="object-cover"
+                        loading="lazy" // explicitly lazy load
                       />
                     </div>
                     <div className="text-left">
@@ -110,7 +110,6 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
           ))}
         </Swiper>
       </div>
-      {/* Prev Button - absolute left */}
 
       <div className="flex justify-center items-center gap-3  mt-3">
         <div className="h-px flex-1 bg-gray-300" />
@@ -136,7 +135,6 @@ export default function CustomTestimonialSlider({ testimonials }: Props) {
           </svg>
         </button>
 
-        {/* Next Button - absolute right */}
         <button
           onClick={handleNext}
           disabled={!swiperInstance}

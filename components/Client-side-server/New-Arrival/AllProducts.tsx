@@ -2,10 +2,10 @@
 
 import { useState, useRef } from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
-import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Product } from "@/types/Products";
 
 interface ProductsPageProps {
@@ -13,10 +13,10 @@ interface ProductsPageProps {
 }
 
 export default function ProductsPage({ products }: ProductsPageProps) {
-  const [selectedVariants, setSelectedVariants] = useState<{
-    [productId: number]: any;
-  }>({});
-  const sliderRef = useRef<any>(null);
+  const [selectedVariants, setSelectedVariants] = useState<Record<number, any>>(
+    {}
+  );
+  const sliderRef = useRef<Slider>(null);
 
   const settings = {
     infinite: false,
@@ -61,14 +61,14 @@ export default function ProductsPage({ products }: ProductsPageProps) {
             const selected = selectedVariants[product.id];
             const displayImage = selected?.images?.[0] || product.images[0];
             const displayPrice =
-              selected?.selling_price || product.selling_price;
+              selected?.selling_price ?? product.selling_price;
             const basePrice = product.base_price;
 
             return (
               <div key={product.id} className="px-2">
-                <div className=" border-[1px] border-[#C5C5C5] hover:shadow-md transition min-h-full w-full mb-6">
+                <div className="border-[1px] border-[#C5C5C5] hover:shadow-md transition min-h-full w-full mb-6">
                   <div
-                    className="p-1  flex items-center justify-center relative"
+                    className="p-1 flex items-center justify-center relative"
                     style={{ borderBottom: "1px solid #C5C5C5" }}
                   >
                     <Image
@@ -87,7 +87,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center text-center sm:text-left px-2 py-1">
                     <div className="flex flex-col p-0 sm:p-2 md:p-2">
-                      <h2 className=" line-clamp-1 text-sm font-semibold">
+                      <h2 className="line-clamp-1 text-sm font-semibold">
                         {product.name}
                       </h2>
                       <p className="text-xs sm:text-sm text-[#f83a3a]">
@@ -112,7 +112,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
                                   [product.id]: variant,
                                 }))
                               }
-                              className={`w-8 h-8 border-[1px] border-[#C5C5C5]  cursor-pointer rounded-full overflow-hidden flex items-center justify-center hover:border-blue-400 ${
+                              className={`w-8 h-8 border-[1px] border-[#C5C5C5] cursor-pointer rounded-full overflow-hidden flex items-center justify-center hover:border-blue-400 ${
                                 selected?.id === variant.id
                                   ? "ring-2 ring-orange-400"
                                   : ""
@@ -134,7 +134,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
                       </div>
                     </div>
 
-                    <div className="text-yellow-500 text-sm sm:text-base whitespace-nowrap  sm:mt-0">
+                    <div className="text-yellow-500 text-sm sm:text-base whitespace-nowrap sm:mt-0">
                       ★★★★<span className="text-gray-300">★</span>
                     </div>
                   </div>
@@ -144,12 +144,14 @@ export default function ProductsPage({ products }: ProductsPageProps) {
           })}
         </Slider>
       </div>
+
       {/* Custom Navigation */}
       <div className="flex justify-center gap-3 items-center ">
         <div className="h-px flex-1 bg-gray-300" />
         <button
           onClick={() => sliderRef.current?.slickPrev()}
           className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+          aria-label="Previous Slide"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -169,6 +171,7 @@ export default function ProductsPage({ products }: ProductsPageProps) {
         <button
           onClick={() => sliderRef.current?.slickNext()}
           className="w-12 h-12 border-2 border-gray-300 rounded-full flex items-center justify-center hover:bg-gray-100"
+          aria-label="Next Slide"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

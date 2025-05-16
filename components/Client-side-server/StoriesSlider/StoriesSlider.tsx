@@ -1,4 +1,3 @@
-// app/components/ClientStoriesSlider.tsx (Client Component)
 "use client";
 
 import { useRef } from "react";
@@ -65,7 +64,8 @@ export default function ClientStoriesSlider({ blogs }: Props) {
                   alt={post.title}
                   fill
                   className="object-contain object-center"
-                  priority
+                  loading="lazy" // lazy load here to improve performance
+                  // remove priority here to avoid render-blocking
                 />
               </div>
               <p className="mt-2 ml-6 text-orange-500 font-semibold text-sm md:text-base">
@@ -95,7 +95,6 @@ export default function ClientStoriesSlider({ blogs }: Props) {
         ))}
       </Slider>
 
-      {/* Navigation Arrows */}
       <div className="relative flex items-center justify-center mt-2 w-full">
         <div className="absolute left-0 w-[calc(50%-4.5rem)] border-t-2 border-gray-300 lg:w-[calc(50%-5rem)]"></div>
         <div className="absolute right-0 w-[calc(50%-4.5rem)] border-t-2 border-gray-300 lg:w-[calc(50%-5rem)]"></div>

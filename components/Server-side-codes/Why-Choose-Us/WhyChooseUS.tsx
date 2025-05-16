@@ -52,12 +52,15 @@ export default function WhyChooseUsSection({
                 minWidth: 0, // ensures no overflow on smaller screens
               }}
             >
+              {/* Parent must be relative for fill */}
               <div className="relative w-16 h-16 mb-4 lg:mb-0 shrink-0">
                 {item.image && (
                   <Image
                     src={`${BASE_URL}${item.image}`}
                     alt={item.heading}
                     fill
+                    priority={index === 0} // preload the first image to improve LCP
+                    sizes="64px" // fixed size since container is 16x16
                     style={{ objectFit: "contain" }}
                   />
                 )}

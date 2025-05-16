@@ -1,3 +1,6 @@
+// app/page.tsx or pages/index.tsx
+
+import Head from "next/head"; // <-- ADD THIS
 import Banner from "@/components/Server-side-codes/Banner/Banner";
 import fetchData from "../api/fetchdata";
 import Category from "@/components/Server-side-codes/Category/Category";
@@ -16,19 +19,47 @@ import {
 } from "./Function";
 import YouTubePlayer from "@/components/Server-side-codes/VideoPlayer/YouTubePlayer";
 
-const Home = async () => {
-  const bannerdata = await fetchData("frontend/banners");
-  const response = await fetchData("frontend/categories");
-  const allProducts = await fetchNewArrivals();
-  const products = await fetchAllProducts();
-  const testimonials = await getTestimonials();
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-  const categories = response.product_categories || [];
-  const whyChooseUsData = await getWhyChooseUsData();
+const Home = async () => {
+  // Fetch all data in parallel
+  const [
+    bannerData,
+    categoryData,
+    newArrivals,
+    allProducts,
+    testimonials,
+    whyChooseUsData,
+  ] = await Promise.all([
+    fetchData("frontend/banners"),
+    fetchData("frontend/categories"),
+    fetchNewArrivals(),
+    fetchAllProducts(),
+    getTestimonials(),
+    getWhyChooseUsData(),
+  ]);
+
+  const categories = categoryData.product_categories || [];
+
+  // Get the first banner image for LCP preload
+  const firstBannerImage = bannerData?.banners?.[0]?.image;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   return (
     <>
-      <Banner bannerEndpoint={bannerdata} />
+      {/* ✅ Preload the first banner image to improve LCP */}
+      <Head>
+        {firstBannerImage && baseUrl && (
+          <link
+            rel="preload"
+            as="image"
+            href={`${baseUrl}${firstBannerImage}`}
+          />
+        )}
+      </Head>
+
+      <Banner bannerEndpoint={bannerData} />
 
       <h1
         className="text-2xl md:text-[48px] mt-6 text-center font-playfair"
@@ -40,11 +71,9 @@ const Home = async () => {
       <Category categories={categories} />
       <Speciality />
       <WhyChooseUsSection whyChooseUsData={whyChooseUsData} />
-      <ProductsPage products={products} />
-      <NewArrivals products={allProducts} />
-
+      <ProductsPage products={allProducts} />
+      <NewArrivals products={newArrivals} />
       <YouTubePlayer />
-
       <Stories />
       <TestimonialSliderClient testimonials={testimonials} />
     </>

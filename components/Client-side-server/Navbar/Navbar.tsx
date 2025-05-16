@@ -26,6 +26,7 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showMobileDropdown, setShowMobileDropdown] = useState(false);
+  const [showDesktopDropdown, setShowDesktopDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
@@ -61,7 +62,7 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
             href={`/category/${cat.id}`}
             className="flex items-center gap-3 hover:text-orange-500"
           >
-            <div className="w-26 h-26 relative lg:left-0">
+            <div className="w-26 h-26 relative">
               <Image
                 src={imageSrc}
                 alt={cat.title}
@@ -149,13 +150,13 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
 
             {/* Desktop Nav */}
             <ul className="hidden lg:flex items-center space-x-8 group relative">
-              {navData.map((navItem) =>
-                navItem.name.toLowerCase() === "categories" ? (
+              {navData.map((navItem, index) =>
+                index === 1 ? (
                   <li
                     key={navItem.pk}
                     className="relative group"
-                    onMouseEnter={() => setShowMobileDropdown(true)}
-                    onMouseLeave={() => setShowMobileDropdown(false)}
+                    onMouseEnter={() => setShowDesktopDropdown(true)}
+                    onMouseLeave={() => setShowDesktopDropdown(false)}
                   >
                     <Link
                       href={navItem.link}
@@ -163,7 +164,7 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
                     >
                       {navItem.name}
                     </Link>
-                    {renderCategoryDropdown()}
+                    {showDesktopDropdown && renderCategoryDropdown()}
                   </li>
                 ) : (
                   <li key={navItem.pk}>

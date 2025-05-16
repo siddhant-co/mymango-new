@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { Heart } from "lucide-react";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import Image from "next/image";
@@ -44,11 +44,13 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
       setCurrentSlide(slider.track.details.rel);
     },
     created(slider) {
-      const slidesInView = (slider.track.details as any).slidesInView;
-      const max = Math.max(
-        0,
-        slider.track.details.slides.length - slidesInView
-      );
+      const visibleSlidesCount = slider.track.details.slides.filter(
+        (slide) => slide.portion > 0
+      ).length;
+
+      const totalSlides = slider.track.details.slides.length;
+      const max = Math.max(0, totalSlides - visibleSlidesCount);
+
       setMaxSlideIndex(max);
     },
   });
@@ -67,7 +69,6 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
   return (
     <div className="mb-3">
       {/* Marquee Heading */}
-
       <div className="relative overflow-hidden mb-4 mt-12">
         <div className="marquee-track flex gap-12 w-max">
           {Array.from({ length: 10 }).map((_, i) => (
@@ -82,7 +83,6 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
               New Arrivals
             </span>
           ))}
-          {/* Duplicate the same content immediately after */}
           {Array.from({ length: 10 }).map((_, i) => (
             <span
               key={`dup-${i}`}
@@ -153,8 +153,12 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
                               }))
                             }
                             className={`w-11 h-11 p-1 border-[1px] border-[#C5C5C5] cursor-pointer rounded-full overflow-hidden flex items-center justify-center hover:border-blue-400
-        ${selected?.id === variant.id ? "ring-2 ring-orange-400" : ""}
-        sm:w-11 sm:h-11 lg:w-8 lg:h-8`}
+                              ${
+                                selected?.id === variant.id
+                                  ? "ring-2 ring-orange-400"
+                                  : ""
+                              }
+                              sm:w-11 sm:h-11 lg:w-8 lg:h-8`}
                           >
                             {variant.images?.[0] && (
                               <Image
@@ -181,7 +185,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
       </div>
 
       {/* Prev / Next Buttons */}
-      <div className="flex justify-center items-center gap-3  mt-3">
+      <div className="flex justify-center items-center gap-3 mt-3">
         <div className="h-px flex-1 bg-gray-300" />
         <button
           onClick={handlePrev}
