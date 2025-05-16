@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import { BannerData } from "@/types/Banner_datatypes";
@@ -14,12 +12,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
     ? bannerEndpoint.banners
     : [];
 
-  const handleScroll = () => {
-    window.scrollBy({
-      top: window.innerHeight * 0.8,
-      behavior: "smooth",
-    });
-  };
+  // Removed handleScroll - no window access in server components
 
   return (
     <section className="w-full relative">
@@ -61,11 +54,8 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
             )}
           </div>
 
-          {/* Scroll Down Indicator */}
-          <div
-            onClick={handleScroll}
-            className="hidden sm:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 cursor-pointer animate-bounce text-white z-20 items-center"
-          >
+          {/* Scroll Down Indicator - purely visual, no onClick */}
+          <div className="hidden sm:flex absolute bottom-6 left-1/2 transform -translate-x-1/2 cursor-default animate-bounce text-white z-20 items-center">
             <p className="text-sm sm:text-base md:text-lg mr-2">Scroll Down</p>
             <ChevronsDown size={24} />
           </div>

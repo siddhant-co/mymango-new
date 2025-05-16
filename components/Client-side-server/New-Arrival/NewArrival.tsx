@@ -68,7 +68,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
     <div className="mb-3">
       {/* Marquee Heading */}
 
-      <div className="relative overflow-hidden mb-6">
+      <div className="relative overflow-hidden mb-4 mt-12">
         <div className="marquee-track flex gap-12 w-max">
           {Array.from({ length: 10 }).map((_, i) => (
             <span

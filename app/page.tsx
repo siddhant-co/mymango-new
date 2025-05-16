@@ -1,9 +1,11 @@
-import Banner from "@/components/Client-side-server/Banner/Banner";
+import Banner from "@/components/Server-side-codes/Banner/Banner";
 import fetchData from "../api/fetchdata";
-import Category from "@/components/Client-side-server/Category/Category";
-import Speciality from "@/components/Client-side-server/What-Make-Us-Special/Speciality";
-import WhyChooseUsSection from "@/components/Client-side-server/Why-Choose-Us/WhyChooseUS";
-import Stories from "@/components/Client-side-server/Stories/Stories";
+import Category from "@/components/Server-side-codes/Category/Category";
+import Speciality from "@/components/Server-side-codes/What-Make-Us-Special/Speciality";
+import WhyChooseUsSection, {
+  getWhyChooseUsData,
+} from "@/components/Server-side-codes/Why-Choose-Us/WhyChooseUS";
+import Stories from "@/components/Server-side-codes/Stories/Stories";
 import ProductsPage from "@/components/Client-side-server/New-Arrival/AllProducts";
 import NewArrivals from "@/components/Client-side-server/New-Arrival/NewArrival";
 import TestimonialSliderClient from "@/components/Client-side-server/New-Arrival/Testimonials";
@@ -12,7 +14,7 @@ import {
   fetchAllProducts,
   getTestimonials,
 } from "./Function";
-import YouTubePlayer from "@/components/Client-side-server/VideoPlayer/YouTubePlayer";
+import YouTubePlayer from "@/components/Server-side-codes/VideoPlayer/YouTubePlayer";
 
 const Home = async () => {
   const bannerdata = await fetchData("frontend/banners");
@@ -22,6 +24,7 @@ const Home = async () => {
   const testimonials = await getTestimonials();
 
   const categories = response.product_categories || [];
+  const whyChooseUsData = await getWhyChooseUsData();
 
   return (
     <>
@@ -36,7 +39,7 @@ const Home = async () => {
 
       <Category categories={categories} />
       <Speciality />
-      <WhyChooseUsSection />
+      <WhyChooseUsSection whyChooseUsData={whyChooseUsData} />
       <ProductsPage products={products} />
       <NewArrivals products={allProducts} />
 
