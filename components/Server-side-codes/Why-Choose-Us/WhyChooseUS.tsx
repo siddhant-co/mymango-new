@@ -27,40 +27,38 @@ export default function WhyChooseUsSection({
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   return (
-    <div className="bg-white w-full">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-white w-full overflow-x-hidden">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:grid lg:grid-cols-3">
           {(whyChooseUsData ?? []).map((item, index) => (
             <div
               key={item.id}
               className={`
-                bg-white shadow-md p-6 border border-18 border-[#f2f2f2f2]
+                bg-white shadow-md p-6 border-14
                 flex flex-col items-center text-center w-full
                 ${
                   index === 0
-                    ? "lg:col-span-1 lg:h-[272px] lg:w-98 lg:mx-[-95px] lg:flex lg:flex-col lg:items-center lg:justify-center"
+                    ? "lg:col-span-1 lg:h-[272px] lg:flex lg:flex-col lg:items-center lg:justify-center"
                     : index === 1
-                    ? "lg:col-span-1 lg:flex lg:flex-row lg:items-center lg:text-left lg:gap-x-6 lg:w-96 lg:h-32 lg:mx-[-10px]"
+                    ? "lg:col-span-1 lg:flex lg:flex-row lg:items-center lg:text-left lg:gap-x-5 lg:h-32"
                     : index === 2
-                    ? "lg:col-start-2 lg:col-span-1 lg:flex lg:flex-row lg:items-center lg:text-left lg:gap-x-6 lg:w-98 lg:h-30 lg:mt-[-153px] lg:mx-[-10px]"
+                    ? "lg:col-start-2 lg:col-span-1 lg:flex lg:flex-row lg:items-center lg:text-left lg:gap-x-6 lg:h-30 lg:mt-[-153px]"
                     : index === 3
-                    ? "lg:col-start-3 lg:col-span-1 lg:h-[272px] lg:w-96 lg:mt-[-305px] lg:mx-18 lg:flex lg:flex-col lg:items-center lg:justify-center"
+                    ? "lg:col-start-3 lg:col-span-1 lg:h-[272px] lg:flex lg:flex-col lg:items-center lg:justify-center lg:mt-[-305px]"
                     : ""
                 }
               `}
               style={{
-                minWidth: 0, // ensures no overflow on smaller screens
+                minWidth: 0,
+                borderColor: "#f2f2f2f2", // custom light gray with transparency
               }}
             >
-              {/* Parent must be relative for fill */}
               <div className="relative w-16 h-16 mb-4 lg:mb-0 shrink-0">
                 {item.image && (
                   <Image
                     src={`${BASE_URL}${item.image}`}
                     alt={item.heading}
                     fill
-                    priority={index === 0} // preload the first image to improve LCP
-                    sizes="64px" // fixed size since container is 16x16
                     style={{ objectFit: "contain" }}
                   />
                 )}
