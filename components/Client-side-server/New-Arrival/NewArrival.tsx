@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Product } from "@/types/Products";
 
+
 interface NewArrivalsProps {
   products: Product[];
 }
@@ -122,6 +123,8 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
                     alt={product.name}
                     fill
                     className="object-contain p-3"
+                    unoptimized
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
 

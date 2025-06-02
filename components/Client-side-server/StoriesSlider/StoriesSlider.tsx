@@ -59,14 +59,15 @@ export default function ClientStoriesSlider({ blogs }: Props) {
               }}
             >
               <div className="w-full h-[200px] relative overflow-hidden">
-                <Image
-                  src={`https://nxadmin.consociate.co.in/${post.image}`}
-                  alt={post.title}
-                  fill
-                  className="object-contain object-center"
-                  loading="lazy" // lazy load here to improve performance
-                  // remove priority here to avoid render-blocking
-                />
+              <Image
+  src={`https://nxadmin.consociate.co.in/${post.image}`}
+  alt={post.title}
+  width={400}
+  height={100}
+  className="object-contain object-center"
+  loading="lazy"
+/>
+
               </div>
               <p className="mt-2 ml-6 text-orange-500 font-semibold text-sm md:text-base">
                 {post.product_category_name}

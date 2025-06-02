@@ -1,6 +1,14 @@
+"use client";
+
 import React from "react";
+import dynamic from "next/dynamic";
 import Button from "@/components/Common-Components/Button";
-import CountdownTimer from "@/components/Client-side-server/CountDownTimer/CountdownTimer";
+
+// Dynamically import CountdownTimer with SSR disabled
+const CountdownTimer = dynamic(
+  () => import("@/components/Client-side-server/CountDownTimer/CountdownTimer"),
+  { ssr: false }
+);
 
 const Speciality: React.FC = () => {
   return (

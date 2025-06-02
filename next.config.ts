@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['nxadmin.consociate.co.in'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'nxadmin.consociate.co.in',
+        pathname: '/**', // matches all paths on that host
+      },
+    ],
   },
 };
 

@@ -27,6 +27,7 @@ const Banner: React.FC<BannerProps> = ({ bannerEndpoint }) => {
               fill
               priority={index === 0}
               className="object-cover"
+              unoptimized
             />
           )}
 

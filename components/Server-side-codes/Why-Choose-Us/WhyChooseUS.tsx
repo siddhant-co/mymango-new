@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import fetchData from "@/api/fetchdata";
 
@@ -59,6 +60,7 @@ export default function WhyChooseUsSection({
                     src={`${BASE_URL}${item.image}`}
                     alt={item.heading}
                     fill
+                      sizes="64px"
                     style={{ objectFit: "contain" }}
                   />
                 )}

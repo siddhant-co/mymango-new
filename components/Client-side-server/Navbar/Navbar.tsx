@@ -1,9 +1,13 @@
 "use client";
 
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store"; // adjust path if needed
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CircleUserRound, ShoppingBag, Menu, X, Search } from "lucide-react";
+import { CircleUserRound, ShoppingBag, Menu, X ,Heart} from "lucide-react";
+import UserAvatar from "../UserAvatar";
 
 interface NavItem {
   pk: number;
@@ -15,6 +19,7 @@ interface Category {
   id: number;
   title: string;
   image: string;
+  slug:string
 }
 
 interface NavbarClientProps {
@@ -25,9 +30,14 @@ interface NavbarClientProps {
 const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
-  const [showDesktopDropdown, setShowDesktopDropdown] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  
+  const wishlistCount = useSelector(
+    (state: RootState) => state.wishlist?.items?.length || 0
+  );
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,323 +47,203 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleCloseMenu = () => {
-    setIsMobileMenuOpen(false);
-    setShowMobileDropdown(false);
-  };
-
-  // Icon color logic:
-  // White if NOT scrolled and mobile menu closed
-  // Black otherwise
-  const iconColor = !isScrolled && !isMobileMenuOpen ? "white" : "black";
-
-  const dynamicTextColor =
-    isScrolled || isMobileMenuOpen ? "text-black" : "text-white";
-
   const renderCategoryDropdown = () => (
-    <div className="absolute left-1/2 top-full transform -translate-x-1/2 mt-2 z-50 w-[50vw] max-w-2xl bg-white/30 backdrop-blur-lg shadow-lg p-6 grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-xl">
-      {categories.map((cat) => {
-        const imageSrc = cat.image.startsWith("/")
-          ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${cat.image}`
-          : cat.image;
-        return (
-          <Link
-            key={cat.id}
-            href={`/category/${cat.id}`}
-            className="flex items-center gap-3 hover:text-orange-500"
-          >
-            <div className="w-26 h-26 relative">
-              <Image
-                src={imageSrc}
-                alt={cat.title}
-                fill
-                className="rounded-md object-cover"
-              />
-            </div>
-            <p className="text-sm font-semibold">{cat.title}</p>
-          </Link>
-        );
-      })}
+    <div
+      className={`
+        absolute top-full left-0 mt-3 z-50 w-64 bg-white rounded-md shadow-xl p-4
+        grid grid-cols-1 gap-4
+        opacity-0 invisible group-hover:opacity-100 group-hover:visible
+        transform translate-y-[-10px] group-hover:translate-y-0
+        transition-all duration-300 ease-in-out
+        before:absolute before:top-[-8px] before:left-5 before:border-8 before:border-x-transparent before:border-b-white before:border-t-transparent
+        `}
+    >
+      {categories.map((cat) => (
+        
+        <Link
+          key={cat.id}
+          href={`/categories/${cat.slug}`}
+          className="flex items-center gap-3 p-2 rounded-md hover:bg-orange-50 hover:text-orange-600 transition-all duration-200 transform hover:scale-105"
+        >
+          <p className="text-sm font-semibold">{cat.title}</p>
+        </Link>
+      ))}
     </div>
   );
 
   return (
-    <>
-      <style>{`
-        /* Mobile menu fade + slide */
-        .mobile-menu {
-          transition: opacity 0.3s ease, transform 0.3s ease;
-          opacity: 0;
-          transform: translateY(-10px);
-          pointer-events: none;
-        }
-        .mobile-menu.open {
-          opacity: 1;
-          transform: translateY(0);
-          pointer-events: auto;
-        }
+    <nav
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/30 backdrop-blur-md shadow-md" : "bg-transparent"
+      }`}
+    >
+      {/* Mobile & Tablet Top Bar */}
+      <div className="flex lg:hidden justify-between items-center px-2 py-3">
+        <Link href="">
+          <Image src="/MangoLogo.webp" alt="Logo" width={100} height={30} />
+        </Link>
+        <div className="flex items-center gap-3 ml-auto mr-2">
+        <UserAvatar />
+          <Link href="/cart" className="cursor-pointer">
+            <ShoppingBag className="text-black w-5 h-5" />
+          </Link>
+          {isMobileMenuOpen ? (
+            <X
+              className="text-black w-6 h-6 cursor-pointer"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+          ) : (
+            <Menu
+              className="text-black w-6 h-6 cursor-pointer"
+              onClick={() => setIsMobileMenuOpen(true)}
+            />
+          )}
+        </div>
+      </div>
 
-        /* Mobile category dropdown fade + slide */
-        .mobile-category-dropdown {
-          max-height: 0;
-          overflow: hidden;
-          opacity: 0;
-          transition: max-height 0.3s ease, opacity 0.3s ease;
-        }
-        .mobile-category-dropdown.open {
-          max-height: 1000px; /* big enough to show all */
-          opacity: 1;
-        }
-
-        /* Search input placeholder black */
-        input::placeholder {
-          color: black;
-          opacity: 1;
-        }
-      `}</style>
-
-      <nav
-        className={`fixed left-0 right-0 z-50 transition-all duration-300
-      bg-white/10 backdrop-blur-md
-      ${isScrolled || isMobileMenuOpen ? "shadow-md" : "shadow-none"}
-
-      /* Mobile View */
-      sm:top-[10px] sm:mt-[10px]
-
-      /* Tablet View */
-      md:top-[14px] md:mt-[8px]
-
-      /* Laptop/Desktop View */
-      lg:top-[30px] lg:mt-[0px]
-    `}
-        style={{
-          top: isScrolled || isMobileMenuOpen ? 0 : undefined,
-          marginTop: isScrolled || isMobileMenuOpen ? 0 : undefined,
-        }}
-      >
-        {/* Main Container */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link href="/">
-              <div className="relative w-40 h-16 lg:w-52 lg:h-20 ml-[-8px] sm:ml-0 lg:ml-[-40px]">
-                <Image
-                  src="/MangoLogo.webp"
-                  alt="Mango Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </Link>
-
-            {/* Desktop Nav */}
-            <ul className="hidden lg:flex items-center space-x-8 group relative">
-              {navData.map((navItem, index) =>
-                index === 1 ? (
-                  <li
-                    key={navItem.pk}
-                    className="relative group"
-                    onMouseEnter={() => setShowDesktopDropdown(true)}
-                    onMouseLeave={() => setShowDesktopDropdown(false)}
-                  >
-                    <Link
-                      href={navItem.link}
-                      className={`cursor-pointer font-semibold hover:text-orange-500 ${dynamicTextColor}`}
-                    >
-                      {navItem.name}
-                    </Link>
-                    {showDesktopDropdown && renderCategoryDropdown()}
-                  </li>
-                ) : (
-                  <li key={navItem.pk}>
-                    <Link
-                      href={navItem.link}
-                      className={`font-semibold hover:text-orange-500 ${dynamicTextColor}`}
-                    >
-                      {navItem.name}
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-
-            {/* Desktop Search + Icons (Laptop View Only) - NO Hamburger on lg */}
-            <div className="hidden lg:flex items-center space-x-6">
-              {/* Search */}
-              <div className="flex items-center border border-transparent bg-white px-2 py-1 max-w-[280px] flex-shrink-0">
-                <Search color="black" size={18} />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="outline-none border-none text-sm bg-white text-black placeholder-black w-full"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  style={{ borderRadius: 0 }}
-                />
-              </div>
-
-              {/* Icons */}
-              <div className="flex items-center space-x-4">
-                <CircleUserRound
-                  className="cursor-pointer"
-                  size={24}
-                  color={iconColor}
-                />
-                <ShoppingBag
-                  className="cursor-pointer"
-                  size={24}
-                  color={iconColor}
-                />
-              </div>
-            </div>
-
-            {/* Tablet View: Search + Icons + Hamburger */}
-            <div className="hidden md:flex lg:hidden items-center space-x-4 flex-1 justify-end">
-              {/* Search bar with reduced width */}
-              <div className="flex items-center border border-transparent bg-white px-2 py-1 max-w-[180px] flex-shrink-0">
-                <Search color="black" size={18} />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="outline-none border-none text-sm bg-white text-black placeholder-black w-full"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  style={{ borderRadius: 0 }}
-                />
-              </div>
-
-              {/* Icons */}
-              <div className="flex items-center space-x-4">
-                <CircleUserRound
-                  className="cursor-pointer"
-                  size={24}
-                  color={iconColor}
-                />
-                <ShoppingBag
-                  className="cursor-pointer"
-                  size={24}
-                  color={iconColor}
-                />
-              </div>
-
-              {/* Hamburger */}
-              <button
-                className="p-2"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? (
-                  <X size={24} color={iconColor} />
-                ) : (
-                  <Menu size={24} color={iconColor} />
-                )}
-              </button>
-            </div>
-
-            {/* Mobile Search */}
-            <div className="flex lg:hidden md:hidden flex-1 mx-4">
-              <div className="flex items-center w-full border border-transparent bg-white px-2 py-1">
-                <Search color="black" size={18} />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="outline-none border-none text-sm bg-white text-black placeholder-black w-full"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  style={{ borderRadius: 0 }}
-                />
-              </div>
-            </div>
-
-            {/* Mobile Hamburger (hidden on tablet and desktop because handled above) */}
-            <button
-              className="lg:hidden md:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle menu"
+      {/* Mobile & Tablet Search Bar */}
+      <div className="lg:hidden px-4 mb-3 flex justify-center">
+        <div className="relative w-[90%] max-w-sm">
+          <span className="absolute inset-y-0 left-3 flex items-center">
+            <svg
+              className="w-5 h-5 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
             >
-              {isMobileMenuOpen ? (
-                <X size={24} color={iconColor} />
-              ) : (
-                <Menu size={24} color={iconColor} />
-              )}
-            </button>
-          </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+              />
+            </svg>
+          </span>
+          <input
+            type="text"
+            placeholder="Search"
+            className="pl-10 pr-4 py-2 rounded-full w-full border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          />
+        </div>
+      </div>
+
+      {/* Desktop Navbar */}
+      <div className="hidden lg:flex justify-between items-center p-4 md:px-8">
+        <Link href="">
+          <Image src="/MangoLogo.webp" alt="Logo" width={160} height={40} />
+        </Link>
+
+        <div className="flex gap-10 items-center">
+          {navData.map((item, index) => (
+            <div key={item.pk} className="relative group">
+              <Link
+                href={item.link}
+                className={`flex items-center  hover:text-orange-500 font-medium ${
+                  isScrolled ? "text-black" : "text-amber-500"
+                }`}
+              >
+                {item.name}
+                {index === 1 && (
+                  <span className="ml-2 mt-1 text-sm flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="feather feather-chevron-down"
+                    >
+                      <path d="M6 9l6 6 6-6"></path>
+                    </svg>
+                  </span>
+                )}
+              </Link>
+
+              {index === 1 && categories.length > 0 && renderCategoryDropdown()}
+            </div>
+          ))}
         </div>
 
-        {/* Mobile Menu with transition */}
-        <div
-          className={`lg:hidden fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg shadow-md p-4 space-y-4 max-h-[calc(100vh-96px)] overflow-auto z-50 mobile-menu ${
-            isMobileMenuOpen ? "open" : ""
+        <div className="flex items-center gap-6">
+          <div className="relative w-52">
+            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg
+                className={`w-5 h-5 transition-colors duration-300 ${
+                  isScrolled ? "text-gray-600" : "text-amber-500"
+                }`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z"
+                />
+              </svg>
+            </span>
+            <input
+              type="text"
+              placeholder="Search"
+              className={`pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 text-sm w-full transition-all duration-300 ${
+                isScrolled
+                  ? "bg-white border border-gray-300 text-gray-800 placeholder-gray-500 focus:ring-gray-400"
+                  : "bg-transparent border border-amber-500 text-amber-500 placeholder-amber-500 focus:ring-amber-500"
+              }`}
+            />
+          </div>
+
+          <UserAvatar />
+
+                   {/* Wishlist */}
+      <Link href="/wishlist" className="relative cursor-pointer">
+        <Heart
+          className={`transition-colors duration-300 ${
+            isScrolled ? 'text-gray-800' : 'text-amber-500'
           }`}
-          style={{ height: "100vh" }}
-        >
-          <ul>
-            {navData.map((navItem) =>
-              navItem.name.toLowerCase() === "categories" ? (
-                <li key={navItem.pk}>
-                  <button
-                    onClick={() => setShowMobileDropdown((prev) => !prev)}
-                    className="flex justify-between w-full font-semibold text-black"
-                  >
-                    {navItem.name}
-                    <span>{showMobileDropdown ? "-" : "+"}</span>
-                  </button>
-                  <div
-                    className={`mobile-category-dropdown ${
-                      showMobileDropdown ? "open" : ""
-                    } mt-2 pl-4 space-y-2`}
-                  >
-                    {categories.map((cat) => {
-                      const imageSrc = cat.image.startsWith("/")
-                        ? `${process.env.NEXT_PUBLIC_API_BASE_URL}${cat.image}`
-                        : cat.image;
-                      return (
-                        <Link
-                          key={cat.id}
-                          href={`/category/${cat.id}`}
-                          onClick={handleCloseMenu}
-                          className="flex items-center gap-3 hover:text-orange-500"
-                        >
-                          <div className="w-10 h-10 relative">
-                            <Image
-                              src={imageSrc}
-                              alt={cat.title}
-                              fill
-                              className="rounded-md object-cover"
-                            />
-                          </div>
-                          <p className="text-sm font-semibold text-black">
-                            {cat.title}
-                          </p>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                </li>
-              ) : (
-                <li key={navItem.pk}>
-                  <Link
-                    href={navItem.link}
-                    onClick={handleCloseMenu}
-                    className="block py-2 font-semibold text-black hover:text-orange-500"
-                  >
-                    {navItem.name}
-                  </Link>
-                </li>
-              )
-            )}
-          </ul>
-
-          {/* Mobile Icons */}
-          <div className="flex items-center space-x-6 mt-6 border-t pt-4">
-            <CircleUserRound className="cursor-pointer text-black" size={28} />
-            <ShoppingBag className="cursor-pointer text-black" size={28} />
-          </div>
+        />
+        {wishlistCount > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
+            {wishlistCount}
+          </span>
+        )}
+      </Link>
+   
+          <Link href="/cart" className="relative cursor-pointer">
+  <ShoppingBag
+    className={`transition-colors duration-300 ${
+      isScrolled ? "text-gray-800" : "text-amber-500"
+    }`}
+  />
+  {cartCount > 0 && (
+    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold w-5 h-5 rounded-full flex items-center justify-center">
+      {cartCount}
+    </span>
+  )}
+</Link>
         </div>
-      </nav>
-    </>
+      </div>
+
+      {/* Mobile Menu Links */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden px-4 pb-4">
+          <ul className="flex flex-col gap-3 text-sm">
+            {navData.map((item) => (
+              <li key={item.pk}>
+                <Link href={item.link} onClick={() => setIsMobileMenuOpen(false)}>
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </nav>
   );
 };
 

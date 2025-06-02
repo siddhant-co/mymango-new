@@ -10,18 +10,36 @@ interface NavbarProps {
 }
 
 const Navbar = async ({ headerEndpoint, categoryEndpoint }: NavbarProps) => {
-  const headerResponse = await fetchData(headerEndpoint);
-  const navData = headerResponse?.headers || [];
+  try {
+    const [headerResponse, categoryResponse] = await Promise.all([
+      fetchData(headerEndpoint),
+      fetchData(categoryEndpoint),
+    ]);
 
-  const categoryResponse = await fetchData(categoryEndpoint);
-  const categories = categoryResponse?.product_categories || [];
+    const navData = Array.isArray(headerResponse?.headers)
+      ? headerResponse.headers
+      : [];
 
-  return (
-    <>
-      <CouponBanner />
-      <NavbarClient navData={navData} categories={categories} />
-    </>
-  );
+    const categories = Array.isArray(categoryResponse?.product_categories)
+      ? categoryResponse.product_categories
+      : [];
+
+    return (
+      <>
+        <CouponBanner />
+        <NavbarClient navData={navData} categories={categories} />
+      </>
+    );
+  } catch (error) {
+    console.error("Navbar fetch error:", error);
+
+    return (
+      <>
+        <CouponBanner />
+        <NavbarClient navData={[]} categories={[]} />
+      </>
+    );
+  }
 };
 
 export default Navbar;
