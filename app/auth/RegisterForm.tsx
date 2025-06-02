@@ -18,7 +18,8 @@ export default function RegisterForm() {
   const [stateName, setStateName] = useState('');
   const [country, setCountry] = useState('');
   const [zipcode, setZipcode] = useState('');
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+
 
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
