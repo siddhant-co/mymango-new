@@ -119,6 +119,9 @@ export default function CheckoutPage() {
       addressId: shippingId,
       totalAmount: finalTotal,
       paymentMethod: 'RAZORPAY',
+      subtotal: subtotal,
+      discountAmount :discount
+
     };
 
     console.log('Sending order payload:', orderBody);
@@ -143,7 +146,7 @@ export default function CheckoutPage() {
       localStorage.setItem('recentOrderId', data.id.toString());
       toast.success('Order placed successfully');
       console.log('Order placed:', data);
-      router.push('/order-success');
+      router.push(`/order-success?id=${data.id}`);
     } catch (error: any) {
       toast.error(error.message || 'Something went wrong');
       console.error('Order error:', error);
