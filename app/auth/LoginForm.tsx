@@ -1,118 +1,120 @@
 'use client';
-
+import toast, { Toaster } from 'react-hot-toast';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { setAuthData } from '@/store/slices/authSlice';
-import Link from 'next/link';  // <-- Import Link from next/link
+import { useRouter } from 'next/navigation';
+import { loginSuccess } from '@/store/slices/authSlice';
+import ForgotPassword from './ForgotPassword'; // import your forgot password component
 
-export default function LoginForm() {
+
+export default function LoginPage() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const dispatch = useDispatch();
 
-  const isValidEmail = (email: string) => /\S+@\S+\.\S+/.test(email);
-
-  const handleLogin = async () => {
-    setMessage('');
-
-    if (!isValidEmail(email)) {
-      setMessage('Please enter a valid email.');
-      return;
-    }
-
-    if (!password) {
-      setMessage('Please enter your password.');
-      return;
-    }
-
+  // New state to toggle between login and forgot password
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setLoading(true);
-
+  
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/user/customer-login/`, {
+      const res = await fetch('https://ecom-testing.up.railway.app/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
-
-      const text = await res.text();
-
-      try {
-        const data = JSON.parse(text);
-
-        if (res.ok) {
-          if (data.token && data.id) {
-            dispatch(setAuthData({
-              token: data.token,
-              customer: {
-                id: data.id,
-                first_name: data.first_name,
-                last_name: data.last_name,
-                email: data.email,
-                phone: data.phone_number?.toString() || '',
-              },
-            }));
-            console.log('Dispatched auth data:', data);
-            setMessage('Login successful!');
+  
+      if (res.ok) {
+        const data = await res.json();
+        if (data.user && data.token) {
+          dispatch(loginSuccess({ customer: data.user, token: data.token }));
+  
+          toast.success('Login successful! Redirecting...');
+          setEmail('');
+          setPassword('');
+  
+          setTimeout(() => {
             router.push('/');
-          } else {
-            setMessage('Invalid response from server.');
-          }
+          }, 1000);
         } else {
-          setMessage(data.message || 'Login failed.');
+          toast.error('Invalid login response');
         }
-      } catch {
-        setMessage(`Unexpected server response:\n${text}`);
+      } else {
+        const errorData = await res.json();
+        toast.error(errorData.message || 'Login failed');
       }
     } catch (error) {
-      setMessage('Network error. Please try again.');
+      console.error('Login error:', error);
+      toast.error('An error occurred during login.');
     } finally {
       setLoading(false);
     }
   };
+  
 
+  if (showForgotPassword) {
+    // Show Forgot Password component
+    return (
+      <div className="max-w-md mx-auto p-6 border bg-white shadow rounded">
+        <button
+          onClick={() => setShowForgotPassword(false)}
+          className="mb-4 text-blue-600 underline"
+        >
+          ← Back to Login
+        </button>
+        <ForgotPassword />
+      </div>
+    );
+  }
+
+  // Default: show login form
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
+    <form
+      onSubmit={handleLogin}
+      className="max-w-md mx-auto p-6 border bg-white shadow rounded"
+      autoComplete="off"
+    >
+      <h2 className="text-xl font-bold mb-4">Login</h2>
       <input
         type="email"
         placeholder="Email"
+        className="w-full mb-3 p-2 border rounded"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 mb-3 border rounded bg-[#fff7f5] border-[#91ca02]"
+        required
+        autoComplete="email"
       />
-
       <input
         type="password"
         placeholder="Password"
+        className="w-full mb-3 p-2 border rounded"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 mb-1 border rounded bg-[#fff7f5] border-[#91ca02]"
+        required
+        autoComplete="current-password"
       />
-
-      {/* Forgot Password Link */}
-      <div className="mb-4 text-right">
-        <Link href="/ForgotPassword" className="text-sm text-orange-500 hover:underline">
-          Forgot Password?
-        </Link>
-      </div>
-
       <button
-        onClick={handleLogin}
+        type="submit"
         disabled={loading}
-        className="w-full bg-[#fb4b02] cursor-pointer text-white p-2 rounded"
+        className="w-full bg-blue-600 text-white p-2 rounded"
       >
         {loading ? 'Logging in...' : 'Login'}
       </button>
 
-      {message && (
-        <p className="mt-4 text-center text-sm text-red-500 whitespace-pre-line">{message}</p>
-      )}
-    </div>
+      {/* Forgot password toggle */}
+      <p className="mt-4 text-center text-sm">
+        <button
+          type="button"
+          onClick={() => setShowForgotPassword(true)}
+          className="text-blue-600 underline"
+        >
+          Forgot password?
+        </button>
+      </p>
+    </form>
   );
 }

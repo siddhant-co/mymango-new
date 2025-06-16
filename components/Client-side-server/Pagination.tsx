@@ -1,4 +1,3 @@
-// Pagination.tsx
 import React from "react";
 
 interface PaginationProps {
@@ -44,12 +43,14 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div className="flex gap-2 mt-6 justify-center">
-      {getPageNumbers().map((page, index) =>
+      {getPageNumbers().map((page, idx) =>
         page === "..." ? (
-          <span key={index} className="px-2">...</span>
+          <span key={idx} className="px-2 select-none">
+            ...
+          </span>
         ) : (
           <button
-            key={index}
+            key={idx}
             onClick={() => onPageChange(page as number)}
             className={`px-3 py-1 rounded ${
               currentPage === page ? "bg-black text-white" : "bg-gray-200"

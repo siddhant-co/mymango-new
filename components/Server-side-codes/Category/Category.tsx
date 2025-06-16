@@ -1,10 +1,21 @@
+'use client';
+
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+
+interface Subcategory {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 interface Category {
   id: number;
-  title: string;
-  image: string;
+  name: string;
+  image?: string; // optional if not always present
+  slug: string;
+  subcategories?: Subcategory[];
 }
 
 interface CategoryProps {
@@ -12,10 +23,9 @@ interface CategoryProps {
 }
 
 const Category: React.FC<CategoryProps> = ({ categories }) => {
-  const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
   if (!baseURL) {
-    // Prevent rendering if baseURL not set to avoid mismatch
     return <p className="text-center py-8">Loading categories...</p>;
   }
 
@@ -30,18 +40,33 @@ const Category: React.FC<CategoryProps> = ({ categories }) => {
     >
       <div className="relative overflow-hidden h-60 sm:h-64 md:h-72 w-full bg-cover bg-no-repeat bg-left">
         <Image
-          src={`${baseURL}${category.image}`}
-          alt={category.title}
+          src={
+            category.image
+              ? `${baseURL}${category.image}`
+              : "/placeholder.jpg" // fallback
+          }
+          alt={category.name}
           fill
           priority={category.id === categories[0].id}
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover"
           unoptimized
         />
-        <div className="absolute top-0 left-0 p-4 bg-black/30 w-full">
+        <div className="absolute top-0 left-0 p-4 bg-black/40 w-full">
           <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-semibold uppercase tracking-wider">
-            {category.title}
+            {category.name}
           </h3>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {category.subcategories?.map((sub) => (
+              <Link
+                key={sub.id}
+                href={`/categories/${category.slug}/${sub.slug}`}
+                className="text-sm bg-white/80 text-black px-2 py-1 rounded hover:bg-orange-100 transition"
+              >
+                {sub.name}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </div>

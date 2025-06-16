@@ -29,7 +29,7 @@ export async function fetchNewArrivals(): Promise<Product[]> {
  
 // All products
  
-  export async function fetchAllProducts(): Promise<Product[]>{
+  export async function fetchAllProducts(currentPage?: number): Promise<Product[]>{
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/frontend/products/?page=1&page_size=1000`,
@@ -62,6 +62,10 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   const data = await res.json();
   return data.testimonials;
 }
+
+
+
+// category
  
  
  
@@ -112,25 +116,25 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
 
 export async function fetchProductsPriceLowToHigh(page: number) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontend/products?page=${page}&sort=price-low-high`);
+  if (!res.ok) throw new Error("Failed to fetch products sorted by price low to high");
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products sorted by price low to high");
-  }
-
-  return res.json(); // Expected to return { products: [...], totalPages: number }
+  const data = await res.json();
+  return {
+    products: data.products ?? data.data ?? [],
+    totalPages: data.totalPages ?? 1,
+  };
 }
-
 
 export async function fetchProductsPriceHighToLow(page: number) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/frontend/products?page=${page}&sort=price-high-low`);
+  if (!res.ok) throw new Error("Failed to fetch products sorted by price high to low");
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products sorted by price high to low");
-  }
-
-  return res.json(); // Expected to return { products: [...], totalPages: number }
+  const data = await res.json();
+  return {
+    products: data.products ?? data.data ?? [],
+    totalPages: data.totalPages ?? 1,
+  };
 }
-
 // PriceRange
 
 
@@ -150,7 +154,7 @@ export async function getPriceRange(): Promise<{ minPrice: number; maxPrice: num
 //
 
 // utils/api/addAddress.ts
-export const addAddress = async (
+export const addAddresss = async (
   customerId: string,
   formValues: Record<string, string>,
   token: string
@@ -204,7 +208,7 @@ export const showAddress = async (
 
 // update address
 
-export async function updateAddress(
+export async function updateAddresss(
   id: number,
   customerId: string,
   data: {
@@ -234,4 +238,143 @@ export async function updateAddress(
   }
 
   return res.json();
+}
+
+
+
+// redux cart
+
+
+// Fetch all cart items
+export const fetchCartItems = async (token: string | null) => {
+  const response = await fetch('https://ecom-testing.up.railway.app/cart', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`,  
+    },
+  });
+
+  if (!response.ok) throw new Error('Failed to fetch cart items');
+  return response.json();
+};
+
+
+// Delete a specific item
+export const deleteCartItem = async (itemId: number, token: string | null) => {
+  if (!token) throw new Error("No token provided");
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/remove/${itemId}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Token ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to delete item");
+  }
+
+  return await response.json(); // or response.text(), depending on your API
+};
+
+
+// Clear the entire cart
+export const clearCart = async (token: string) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/clear`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) throw new Error('Failed to clear cart');
+};
+
+
+
+export const addToCartApi = async (
+  { productId, quantity, variantId }: { productId: number; quantity: number; variantId?: number | null },
+  token: string
+) => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`, {
+    method: "POST",
+    headers: {
+      "Authorization": `Token ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ productId, quantity, variantId }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add item to cart");
+  }
+
+  return await response.json();
+};
+
+
+// Address
+
+
+
+export async function fetchAddresses(token: string) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/address`, {
+    headers: { Authorization: `Token ${token}` },
+  });
+  if (!res.ok) throw new Error('Failed to fetch addresses');
+  return res.json();
+}
+
+// Function/addAddress.ts
+
+export async function addAddress(token: string, body: {
+  fullName: string;
+  phone: string;
+  pincode: string;
+  state: string;
+  city: string;
+  addressLine: string;
+}) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/address`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) throw new Error('Failed to add address');
+  return res.json();
+}
+
+export async function updateAddress(token: string, id: number, body: any) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/address/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error('Failed to update address');
+  return res.json();
+}
+
+export async function deleteAddress(token: string, id: number) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/address/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${token}`,
+    },
+  });
+
+  const data = await res.json().catch(() => null); // avoid crash on empty body
+
+  if (!res.ok) {
+    console.error("Delete failed:", res.status, data);
+    throw new Error(data?.message || 'Failed to delete address');
+  }
 }

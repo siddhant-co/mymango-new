@@ -1,5 +1,3 @@
-// components/ProductListWithPagination.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -17,14 +15,19 @@ const ProductListWithPagination: React.FC<Props> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
-  const endIndex = startIndex + PRODUCTS_PER_PAGE;
-  const currentProducts = products.slice(startIndex, endIndex);
+  const currentProducts = products.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+
+  // Reset to first page if products change and currentPage is out of range
+  React.useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(1);
+  }, [products, totalPages, currentPage]);
 
   return (
     <div>
       {currentProducts.length > 0 ? (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {currentProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
@@ -33,11 +36,13 @@ const ProductListWithPagination: React.FC<Props> = ({ products }) => {
         <p>No products found.</p>
       )}
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      )}
     </div>
   );
 };

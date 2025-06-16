@@ -1,34 +1,15 @@
-// components/Shop/SortDropdown.tsx
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+interface SortDropdownProps {
+  value: string;
+  onChange: (value: string) => void;
+}
 
-const SortDropdown = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const currentSort = searchParams.get("sort") ?? "";
-
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedSort = e.target.value;
-    const params = new URLSearchParams(searchParams.toString());
-
-    // Reset to page 1 on sort change
-    params.set("page", "1");
-
-    if (selectedSort) {
-      params.set("sort", selectedSort);
-    } else {
-      params.delete("sort");
-    }
-
-    router.push(`?${params.toString()}`);
-  };
-
+const SortDropdown: React.FC<SortDropdownProps> = ({ value, onChange }) => {
   return (
     <select
-      value={currentSort}
-      onChange={onChange}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       className="border px-3 py-1 rounded"
       aria-label="Sort products"
     >

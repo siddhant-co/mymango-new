@@ -1,33 +1,38 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Address } from '@/types/address';
-import { showAddress } from '@/app/Function';
-import AddressEditForm from '@/components/Server-side-codes/AddressEditForm'; 
+import AddressEditForm from '@/components/Server-side-codes/AddressEditForm';
 import { SquarePen } from 'lucide-react';
 
 type Props = {
   customerId: string;
   token: string;
   onSelectAddress: (selectedId: string) => void;
-  selectedAddressId?: string;  // add this prop to track selection
-  addresses:Address[]
+  selectedAddressId?: string;
+  addresses: Address[];
 };
 
-export default function AddressList({ customerId, token, onSelectAddress, selectedAddressId, addresses }: Props) {
+export default function AddressList({
+  customerId,
+  token,
+  onSelectAddress,
+  selectedAddressId,
+  addresses,
+}: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editingAddress, setEditingAddress] = useState<Address | null>(null);
 
-
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   if (loading) return <p>Loading addresses...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
 
   const deliveryAddress = addresses.find(addr => addr.type === 'Delivery address');
-  // console.log("addresses", deliveryAddress)
   const billingAddress = addresses.find(addr => addr.type === 'Billing address');
 
-  // helper to detect if an address is selected
   const isSelected = (id: string) => selectedAddressId === id;
 
   return (
@@ -44,7 +49,7 @@ export default function AddressList({ customerId, token, onSelectAddress, select
             <button
               className="text-blue-600 underline text-sm cursor-pointer"
               onClick={e => {
-                e.stopPropagation(); // Prevent selecting address when editing
+                e.stopPropagation();
                 setEditingAddress(deliveryAddress);
               }}
               aria-label="Edit delivery address"
@@ -63,9 +68,7 @@ export default function AddressList({ customerId, token, onSelectAddress, select
               token={token}
               customerId={customerId}
               onClose={() => setEditingAddress(null)}
-              onSuccess={() => {
-                setEditingAddress(null);
-              }}
+              onSuccess={() => setEditingAddress(null)}
             />
           )}
         </div>
@@ -83,7 +86,7 @@ export default function AddressList({ customerId, token, onSelectAddress, select
             <button
               className="text-blue-600 underline text-sm cursor-pointer"
               onClick={e => {
-                e.stopPropagation(); // Prevent selecting address when editing
+                e.stopPropagation();
                 setEditingAddress(billingAddress);
               }}
               aria-label="Edit billing address"
@@ -102,9 +105,7 @@ export default function AddressList({ customerId, token, onSelectAddress, select
               token={token}
               customerId={customerId}
               onClose={() => setEditingAddress(null)}
-              onSuccess={() => {
-                setEditingAddress(null);
-              }}
+              onSuccess={() => setEditingAddress(null)}
             />
           )}
         </div>

@@ -2,7 +2,7 @@
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import ProductCard from "@/components/Client-side-server/All-products/ProductCard"
+import ProductCard from "@/components/Client-side-server/All-products/ProductCard";
 import { Product } from "@/types/Products";
 
 export default function WishlistPage() {
@@ -18,19 +18,22 @@ export default function WishlistPage() {
 
   return (
     <div className="p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-20">
-      {wishlistItems.map((item) => (
-        <ProductCard
-          key={item.id}
-          product={{
-            id: item.id,
-            name: item.title,
-            slug: "", // optional for now
-            selling_price: item.price,
-            base_price: item.price,
-            images: [item.image],
-          } as unknown as Product}
-        />
-      ))}
+      {wishlistItems.map((item) => {
+        const mockProduct: Product = {
+          id: item.id,
+          name: item.title,
+          slug: `product-${item.id}`, // Fallback slug for linking
+          basePrice: item.price,
+          sellingPrice: item.price,
+          imageUrl: item.image, // required by ProductCard
+          images: [{ url: item.image }],
+          variants: [],
+          description: "",
+          category: "",
+        };
+
+        return <ProductCard key={item.id} product={mockProduct} />;
+      })}
     </div>
   );
 }

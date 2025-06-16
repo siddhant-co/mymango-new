@@ -1,111 +1,103 @@
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Customer {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string | number;
-}
-
-interface ForgotPasswordState {
-  email: string;
-  otpSent: boolean;
-  otpVerified: boolean;
-  resetSuccess: boolean;
-  loading: boolean;
-  error: string | null;
-}
-
 interface AuthState {
+  customer: any | null;
+  
   token: string | null;
-  customer: Customer | null;
-  forgotPassword: ForgotPasswordState;
-}
 
-const initialForgotPasswordState: ForgotPasswordState = {
-  email: '',
-  otpSent: false,
-  otpVerified: false,
-  resetSuccess: false,
-  loading: false,
-  error: null,
-};
+  resetLoading: boolean;
+  resetError: string | null;
+  resetStep: number; // 1 = send email, 2 = verify OTP, 3 = reset password
+  resetSuccess: boolean;
+}
 
 const initialState: AuthState = {
-  token: null,
   customer: null,
-  forgotPassword: initialForgotPasswordState,
+  token: null,
+
+  resetLoading: false,
+  resetError: null,
+  resetStep: 1,
+  resetSuccess: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuthData: (
-      state,
-      action: PayloadAction<{ token: string; customer: Customer }>
-    ) => {
-      state.token = action.payload.token;
+    loginSuccess(state, action: PayloadAction<{ customer: any; token: string }>) {
       state.customer = action.payload.customer;
+      state.token = action.payload.token;
     },
-    logout: (state) => {
-      state.token = null;
+    logout(state) {
       state.customer = null;
-      state.forgotPassword = initialForgotPasswordState;
+      state.token = null;
     },
-    startForgotPasswordLoading: (state) => {
-      state.forgotPassword.loading = true;
-      state.forgotPassword.error = null;
+
+    // Password reset reducers
+    resetRequestStart(state) {
+      state.resetLoading = true;
+      state.resetError = null;
     },
-    setForgotPasswordEmail: (state, action: PayloadAction<string>) => {
-      state.forgotPassword.email = action.payload;
+    resetRequestSuccess(state) {
+      state.resetLoading = false;
+      state.resetStep = 2; // move to verify OTP
     },
-    sendOtpSuccess: (state) => {
-      state.forgotPassword.loading = false;
-      state.forgotPassword.otpSent = true;
-      state.forgotPassword.error = null;
+    resetRequestFailure(state, action: PayloadAction<string>) {
+      state.resetLoading = false;
+      state.resetError = action.payload;
     },
-    sendOtpFailure: (state, action: PayloadAction<string>) => {
-      state.forgotPassword.loading = false;
-      state.forgotPassword.error = action.payload;
+
+    verifyOtpStart(state) {
+      state.resetLoading = true;
+      state.resetError = null;
     },
-    verifyOtpSuccess: (state) => {
-      state.forgotPassword.loading = false;
-      state.forgotPassword.otpVerified = true;
-      state.forgotPassword.error = null;
+    verifyOtpSuccess(state) {
+      state.resetLoading = false;
+      state.resetStep = 3; // move to reset password
     },
-    verifyOtpFailure: (state, action: PayloadAction<string>) => {
-      state.forgotPassword.loading = false;
-      state.forgotPassword.error = action.payload;
+    verifyOtpFailure(state, action: PayloadAction<string>) {
+      state.resetLoading = false;
+      state.resetError = action.payload;
     },
-    resetPasswordSuccess: (state) => {
-      state.forgotPassword.loading = false;
-      state.forgotPassword.resetSuccess = true;
-      state.forgotPassword.error = null;
+
+    resetPasswordStart(state) {
+      state.resetLoading = true;
+      state.resetError = null;
     },
-    resetPasswordFailure: (state, action: PayloadAction<string>) => {
-      state.forgotPassword.loading = false;
-      state.forgotPassword.error = action.payload;
+    resetPasswordSuccess(state) {
+      state.resetLoading = false;
+      state.resetSuccess = true; // done
     },
-    resetForgotPasswordState: (state) => {
-      state.forgotPassword = initialForgotPasswordState;
+    resetPasswordFailure(state, action: PayloadAction<string>) {
+      state.resetLoading = false;
+      state.resetError = action.payload;
+    },
+
+    resetPasswordFlowReset(state) {
+      // reset all password reset info to start fresh
+      state.resetLoading = false;
+      state.resetError = null;
+      state.resetStep = 1;
+      state.resetSuccess = false;
     },
   },
 });
 
 export const {
-  setAuthData,
+  loginSuccess,
   logout,
-  startForgotPasswordLoading,
-  setForgotPasswordEmail,
-  sendOtpSuccess,
-  sendOtpFailure,
+  resetRequestStart,
+  resetRequestSuccess,
+  resetRequestFailure,
+  verifyOtpStart,
   verifyOtpSuccess,
   verifyOtpFailure,
+  resetPasswordStart,
   resetPasswordSuccess,
   resetPasswordFailure,
-  resetForgotPasswordState,
+  resetPasswordFlowReset,
 } = authSlice.actions;
 
 export default authSlice.reducer;

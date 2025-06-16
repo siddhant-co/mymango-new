@@ -10,7 +10,6 @@ import WhyChooseUsSection, {
 } from "@/components/Server-side-codes/Why-Choose-Us/WhyChooseUS";
 import Stories from "@/components/Server-side-codes/Stories/Stories";
 import ProductsPage from "@/components/Client-side-server/All-products/ProductsPage";
-import NewArrivals from "@/components/Client-side-server/New-Arrival/NewArrival";
 import TestimonialSliderClient from "@/components/Client-side-server/New-Arrival/Testimonials";
 import {
   fetchNewArrivals,
@@ -21,6 +20,9 @@ import YouTubePlayer from "@/components/Server-side-codes/VideoPlayer/YouTubePla
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ProductsCard from "@/components/Client-side-server/All-new-products/ProductList";
+import BestSellingProducts from "@/components/Client-side-server/New-Arrival/BestSellingProducts";
+
 
 export default async function Home() {
   // Fetch all data in parallel-
@@ -67,13 +69,13 @@ export default async function Home() {
         BROWSE THROUGH OUR CATEGORY
       </h1>
 
-      <Category categories={categories} />
+      {/* <Category categories={categories} /> */}
       <Speciality />
       <WhyChooseUsSection whyChooseUsData={whyChooseUsData} />
-      <ProductsPage products={allProducts} />
-      <NewArrivals products={newArrivals} />
+      <ProductsCard></ProductsCard>
+       <BestSellingProducts/>
       <YouTubePlayer />
-      <Stories />
+      {/* <Stories /> */}
       <TestimonialSliderClient testimonials={testimonials} />
     </>
   );
