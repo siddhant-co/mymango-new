@@ -48,7 +48,11 @@ export default function CheckoutPage() {
   const subtotal = cartItems.reduce((acc, item) => acc + item.basePrice * item.quantity, 0);
   const discountThreshold = 500;
   const discountRate = 0.1;
-  const discount = subtotal >= discountThreshold ? subtotal * discountRate : 0;
+  // const discount = subtotal >= discountThreshold ? subtotal * discountRate : 0;
+  const discount = subtotal >= discountThreshold 
+  ? Math.round(subtotal * discountRate * 100) / 100 
+  : 0;
+
   const finalTotal = subtotal - discount;
 
   useEffect(() => {

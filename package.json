@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "cross-env NEXT_PRIVATE_BUILD_WORKER=webpack next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -43,6 +43,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-slick": "^0.23.13",
+    "cross-env": "^7.0.3",
     "prisma": "^6.9.0",
     "tailwindcss": "^4",
     "typescript": "^5"

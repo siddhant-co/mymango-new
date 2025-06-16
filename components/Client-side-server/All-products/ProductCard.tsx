@@ -15,6 +15,8 @@ import { Product } from '@/types/Products';
 
 interface Props {
   product: Product;
+  selectedVariant?: any | null;
+  onVariantSelect?: React.Dispatch<React.SetStateAction<any | null>>;
 }
 
 export default function ProductCard({ product }: Props) {

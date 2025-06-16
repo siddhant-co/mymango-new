@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import Slider from "react-slick";
 import { Product } from "@/types/Products";
 import { useDispatch } from "react-redux";
-import ProductCard from "@/components/Client-side-server/All-products/ProductCard";
 
 interface ProductsPageProps {
   products: Product[];
@@ -52,19 +51,8 @@ export default function ProductsPage({ products }: ProductsPageProps) {
 
       <div className="slider-container px-2 sm:px-3">
       <Slider {...settings} ref={sliderRef}>
-  {products.map((product) => (
-    <ProductCard
-      key={product.id}
-      product={product}
-      selectedVariant={selectedVariants[product.id]}
-      onVariantSelect={(variant) =>
-        setSelectedVariants((prev) => ({
-          ...prev,
-          [product.id]: variant,
-        }))
-      }
-    />
-  ))}
+
+
 </Slider>
       </div>
 

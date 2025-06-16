@@ -103,6 +103,7 @@ export function useAddToCart() {
           variantId: selectedVariant?.id ?? null,
           product: undefined,
           price: undefined,
+          id: 0
         })
       );
 
