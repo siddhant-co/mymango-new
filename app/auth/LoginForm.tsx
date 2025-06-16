@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { loginSuccess } from '@/store/slices/authSlice';
-import ForgotPassword from './ForgotPassword'; // import your forgot password component
+import ForgotPassword from './ForgotPassword/page';
+
+
 
 
 export default function LoginPage() {

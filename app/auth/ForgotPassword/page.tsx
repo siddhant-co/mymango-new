@@ -4,16 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
+  verifyOtpSuccess,
+  verifyOtpFailure,
+  resetPasswordSuccess,
+  resetPasswordFlowReset,
   resetRequestStart,
   resetRequestSuccess,
   resetRequestFailure,
   verifyOtpStart,
-  verifyOtpSuccess,
-  verifyOtpFailure,
   resetPasswordStart,
-  resetPasswordSuccess,
-  resetPasswordFailure,
-  resetPasswordFlowReset,
+  resetPasswordFailure
 } from '@/store/slices/authSlice';
 import { RootState } from '@/store/store';
 
