@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 // types.ts
 export interface ChildCategory {
   categoryId: number;
@@ -9,11 +11,11 @@ export interface ChildCategory {
 }
 
 export interface Category {
+  [x: string]: ReactNode;
   description: any;
   id: number;
   name: string;
   slug: string;
-  child_categories: ChildCategory[];
 }
 
 export interface ApiResponse {
