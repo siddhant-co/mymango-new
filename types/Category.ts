@@ -9,6 +9,7 @@ export interface ChildCategory {
 }
 
 export interface Category {
+  description: any;
   id: number;
   name: string;
   slug: string;
