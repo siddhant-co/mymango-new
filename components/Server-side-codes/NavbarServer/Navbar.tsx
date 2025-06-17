@@ -1,8 +1,10 @@
 // components/Navbar/Navbar.server.tsx
 import React from "react";
 import NavbarClient from "@/components/Client-side-server/Navbar/Navbar";
-import fetchData from "@/api/fetchdata";
+
 import CouponBanner from "@/components/Server-side-codes/CouponBanner/CouponBanner";
+import fetchData from "@/api/fetchdata";
+
 
 interface NavbarProps {
   headerEndpoint: string;

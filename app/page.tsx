@@ -2,7 +2,7 @@
 
 import Head from "next/head";
 import Banner from "@/components/Server-side-codes/Banner/Banner";
-import fetchData from "../api/fetchdata";
+
 import Category from "@/components/Server-side-codes/Category/Category";
 import Speciality from "@/components/Server-side-codes/What-Make-Us-Special/Speciality";
 import WhyChooseUsSection, {
@@ -22,6 +22,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductsCard from "@/components/Client-side-server/All-new-products/ProductList";
 import BestSellingProducts from "@/components/Client-side-server/New-Arrival/BestSellingProducts";
+import fetchData from "@/api/fetchdata";
+import ProductList from "@/components/Client-side-server/All-new-products/ProductList";
 
 
 export default async function Home() {
@@ -72,7 +74,8 @@ export default async function Home() {
       {/* <Category categories={categories} /> */}
       <Speciality />
       <WhyChooseUsSection whyChooseUsData={whyChooseUsData} />
-      <ProductsCard></ProductsCard>
+      <ProductsCard selectedCategory="All" />
+
        <BestSellingProducts/>
       <YouTubePlayer />
       {/* <Stories /> */}

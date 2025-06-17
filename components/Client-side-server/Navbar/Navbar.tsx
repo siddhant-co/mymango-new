@@ -16,10 +16,8 @@ interface NavItem {
 }
 
 interface Category {
-  title: string;
-  id: number;
   name: string;
-  image: string;
+  id: number;
   slug: string;
 }
 
@@ -42,15 +40,15 @@ const NavbarClient: React.FC<NavbarClientProps> = ({ navData, categories }) => {
     <div
       className="absolute top-full left-0 mt-3 z-50 w-64 bg-white rounded-md shadow-xl p-4 grid grid-cols-1 gap-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transform translate-y-[-10px] group-hover:translate-y-0 transition-all duration-300 ease-in-out before:absolute before:top-[-8px] before:left-5 before:border-8 before:border-x-transparent before:border-b-white before:border-t-transparent"
     >
-      {/* {categories.slice(0, 8).map((cat) => (
+      {categories.slice(0, 8).map((cat) => (
         <Link
           key={cat.id}
           href={`/categories/${cat.slug}`}
           className="flex items-center gap-3 p-2 rounded-md hover:bg-orange-50 hover:text-orange-600 transition-all duration-200 transform hover:scale-105"
         >
-          <p className="text-sm font-semibold">{cat.title}</p>
+          <p className="text-sm font-semibold">{cat.name}</p>
         </Link>
-      ))} */}
+      ))}
     </div>
   );
 

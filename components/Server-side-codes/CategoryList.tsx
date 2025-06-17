@@ -3,6 +3,7 @@
 interface Category {
   id: string;
   name: string;
+  slug:string
 }
 
 const CategoryList = ({ categories }: { categories: Category[] }) => {

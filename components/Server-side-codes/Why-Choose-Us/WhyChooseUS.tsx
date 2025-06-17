@@ -1,6 +1,7 @@
 
-import Image from "next/image";
 import fetchData from "@/api/fetchdata";
+import Image from "next/image";
+
 
 export interface WhyChooseUs {
   id: number;

@@ -71,7 +71,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
  
 export async function getCategoryProducts(slug: string): Promise<Product[]> {
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/frontend/products?category=${encodeURIComponent(slug)}`;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/category?category=${encodeURIComponent(slug)}`;
     // console.log("Fetching products for category:", slug);
     // console.log("Fetching URL:", url);
 
